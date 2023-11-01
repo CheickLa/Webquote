@@ -25,7 +25,7 @@ class Invoice
 
     #[ORM\OneToOne(inversedBy: 'invoice', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?quote $quote_id = null;
+    private ?quote $quote = null;
 
     public function getId(): ?int
     {
@@ -68,14 +68,14 @@ class Invoice
         return $this;
     }
 
-    public function getQuoteId(): ?quote
+    public function getQuote(): ?quote
     {
-        return $this->quote_id;
+        return $this->quote;
     }
 
-    public function setQuoteId(quote $quote_id): static
+    public function setQuote(quote $quote): static
     {
-        $this->quote_id = $quote_id;
+        $this->quote = $quote;
 
         return $this;
     }

@@ -22,7 +22,7 @@ class Quote
 
     #[ORM\ManyToOne(inversedBy: 'quotes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Company $client_id = null;
+    private ?Company $client = null;
 
     #[ORM\OneToOne(mappedBy: 'quote_id', cascade: ['persist', 'remove'])]
     private ?Invoice $invoice = null;
@@ -56,14 +56,14 @@ class Quote
         return $this;
     }
 
-    public function getClientId(): ?Company
+    public function getClient(): ?Company
     {
-        return $this->client_id;
+        return $this->client;
     }
 
-    public function setClientId(?Company $client_id): static
+    public function setClient(?Company $client): static
     {
-        $this->client_id = $client_id;
+        $this->client = $client;
 
         return $this;
     }

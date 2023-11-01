@@ -21,7 +21,7 @@ class Service
 
     #[ORM\ManyToOne(inversedBy: 'services')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?ServiceCategory $service_category_id = null;
+    private ?ServiceCategory $service_category = null;
 
     public function getId(): ?int
     {
@@ -52,14 +52,14 @@ class Service
         return $this;
     }
 
-    public function getServiceCategoryId(): ?ServiceCategory
+    public function getServiceCategory(): ?ServiceCategory
     {
-        return $this->service_category_id;
+        return $this->service_category;
     }
 
-    public function setServiceCategoryId(?ServiceCategory $service_category_id): static
+    public function setServiceCategory(?ServiceCategory $service_category): static
     {
-        $this->service_category_id = $service_category_id;
+        $this->service_category = $service_category;
 
         return $this;
     }
