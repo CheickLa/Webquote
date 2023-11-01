@@ -45,6 +45,9 @@ class Company
     #[ORM\OneToMany(mappedBy: 'client_id', targetEntity: Quote::class, orphanRemoval: true)]
     private Collection $quotes;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
     public function __construct()
     {
         $this->serviceCategories = new ArrayCollection();
@@ -208,6 +211,18 @@ class Company
                 $quote->setClientId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }
