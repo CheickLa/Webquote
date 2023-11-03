@@ -70,3 +70,11 @@ Executer les requètes en DB
 `docker compose exec php bin/console doctrine:schema:update --force`
 
 `docker compose exec php bin/console d:s:u --force`
+
+Install webpack:
+
+`docker compose exec php composer require symfony/webpack-encore-bundle`
+
+`docker compose exec php npm install`
+
+`docker compose exec php npm run dev`
