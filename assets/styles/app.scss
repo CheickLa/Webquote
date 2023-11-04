@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-$grey: #ccc;
+@import "@fontsource/poppins";
 
 body {
-    background-color: $grey;
+  font-family: "Poppins";
 }
