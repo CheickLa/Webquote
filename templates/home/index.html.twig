@@ -1,60 +1,61 @@
-{% extends 'base.html.twig' %} {% block title %}Gérez vos factures simplement{%
-endblock %} {% block body %}
-<div class="flex min-h-screen flex-col bg-indigo-50 p-4 md:p-24">
-  <!-- Navbar -->
-  <nav class="flex">
-    <div class="flex flex-1 flex-col md:flex-row">
-      <p class="text-center text-4xl font-semibold md:text-left">Webquote</p>
-      <div
-        class="flex flex-1 justify-between pt-2 underline md:flex-row md:items-center md:gap-10 md:pl-12 md:pt-0 md:text-lg md:no-underline"
-      >
-        <a href="#">
-          <p>A propos</p>
-        </a>
-        <a href="#">
-          <p>Nous contacter</p>
-        </a>
-        <div class="hidden md:block md:flex-1"></div>
-        <a href="#">
-          <p
-            class="md:rounded-full md:border md:border-indigo-500 md:bg-indigo-500 md:px-4 md:py-1 md:text-center md:font-semibold md:text-white md:hover:border-indigo-600 md:hover:bg-indigo-600"
-          >
-            Connexion
-          </p>
-        </a>
+{% extends 'base.html.twig' %}
+{% block title %}Gérez vos factures simplement{%endblock %}
+
+{% block body %}
+  <div class="flex min-h-screen flex-col bg-indigo-50 p-4 md:p-24">
+    <!-- Navbar -->
+    <nav class="flex">
+      <div class="flex flex-1 flex-col md:flex-row">
+        <p class="text-center text-4xl font-semibold md:text-left">Webquote</p>
+        <div
+          class="flex flex-1 justify-between pt-2 underline md:flex-row md:items-center md:gap-10 md:pl-12 md:pt-0 md:text-lg md:no-underline"
+        >
+          <a href="#">
+            <p>A propos</p>
+          </a>
+          <a href="#">
+            <p>Nous contacter</p>
+          </a>
+          <div class="hidden md:block md:flex-1"></div>
+          <a href="#">
+            <p
+              class="md:rounded-full md:border md:border-indigo-500 md:bg-indigo-500 md:px-4 md:py-1 md:text-center md:font-semibold md:text-white md:hover:border-indigo-600 md:hover:bg-indigo-600"
+            >
+              Connexion
+            </p>
+          </a>
+        </div>
       </div>
-      <!-- </div> -->
-    </div>
-  </nav>
+    </nav>
 
-  <!-- Content -->
-  <main class="flex flex-1 flex-col pt-8 lg:flex-row lg:px-16 lg:pt-36">
-    <!-- Description -->
-    <div class="flex flex-col gap-10 lg:flex-1">
-      <h1 class="text-xl lg:w-2/3 lg:text-5xl">
-        Facturez vos prestations à vitesse grand V. 📈
-      </h1>
-      <p class="lg:w-2/3 lg:text-lg lg:leading-loose">
-        Grâce à notre plateforme conviviale et puissante, simplifiez la gestion
-        de vos projets, suivez vos paiements, et maximisez votre efficacité.
-        Prêt à optimiser votre activité ?
-      </p>
+    <!-- Content -->
+    <main class="flex flex-1 flex-col pt-8 lg:flex-row lg:px-16 lg:pt-36">
+      <!-- Description -->
+      <div class="flex flex-col gap-5 lg:flex-1 lg:gap-10">
+        <h1 class="text-xl lg:w-2/3 lg:text-5xl">
+          Facturez vos prestations à vitesse grand V. 📈
+        </h1>
+        <p class="lg:w-2/3 lg:text-lg lg:leading-loose">
+          Grâce à notre plateforme conviviale et puissante, simplifiez la gestion
+          de vos projets, suivez vos paiements, et maximisez votre efficacité.
+          Prêt à optimiser votre activité ?
+        </p>
 
-      <div class="flex grow-0">
-        <a href="#">
-          <p
-            class="rounded-full border border-indigo-500 bg-indigo-500 px-4 py-1 text-center font-semibold text-white hover:border-indigo-600 hover:bg-indigo-600 lg:text-xl"
-          >
-            Découvrez comment
-          </p>
-        </a>
+        <div class="m-auto flex grow-0 lg:m-0">
+          <a href="#">
+            <p
+              class="rounded-full border border-indigo-500 bg-indigo-500 px-4 py-1 text-center text-lg font-semibold text-white hover:border-indigo-600 hover:bg-indigo-600 lg:text-xl"
+            >
+              Découvrez comment
+            </p>
+          </a>
+        </div>
       </div>
-    </div>
 
-    <!-- Demo -->
-    <div class="flex flex-1 justify-center">
-      <img src="{{ asset('build/images/chart.svg') }}" alt="Graphique" />
-    </div>
-  </main>
-</div>
+      <!-- Demo -->
+      <div class="flex flex-1 justify-center">
+        <img src="{{ asset('build/images/chart.svg') }}" alt="Graphique" />
+      </div>
+    </main>
+  </div>
 {% endblock %}
