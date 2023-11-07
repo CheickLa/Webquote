@@ -6,6 +6,7 @@ use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\DBAL\Types\LegalStatusType;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
 class Company
@@ -21,8 +22,8 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $legal_status = null;
+    #[ORM\Column(type: 'LegalStatusType')]
+    private ?LegalStatusType $legal_status = null;
 
     #[ORM\Column(length: 255)]
     private ?string $sector = null;
@@ -36,8 +37,8 @@ class Company
     #[ORM\Column]
     private ?float $sales = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    #[ORM\Column]
+    private ?bool $role = null;
 
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: ServiceCategory::class, orphanRemoval: true)]
     private Collection $serviceCategories;
@@ -83,12 +84,12 @@ class Company
         return $this;
     }
 
-    public function getLegalStatus(): ?string
+    public function getLegalStatus(): ?LegalStatusType
     {
         return $this->legal_status;
     }
 
-    public function setLegalStatus(string $legal_status): static
+    public function setLegalStatus(LegalStatusType $legal_status): static
     {
         $this->legal_status = $legal_status;
 
@@ -143,12 +144,12 @@ class Company
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRole(): ?bool
     {
         return $this->role;
     }
 
-    public function setRole(string $role): static
+    public function setRole(bool $role): static
     {
         $this->role = $role;
 
