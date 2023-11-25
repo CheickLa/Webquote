@@ -49,6 +49,9 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[ORM\OneToOne(mappedBy: 'company', cascade: ['persist', 'remove'])]
+    private ?User $companyUser = null;
+
     public function __construct()
     {
         $this->serviceCategories = new ArrayCollection();
@@ -224,6 +227,23 @@ class Company
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getCompanyUser(): ?User
+    {
+        return $this->companyUser;
+    }
+
+    public function setCompanyUser(User $companyUser): static
+    {
+        // set the owning side of the relation if necessary
+        if ($companyUser->getCompany() !== $this) {
+            $companyUser->setCompany($this);
+        }
+
+        $this->companyUser = $companyUser;
 
         return $this;
     }
