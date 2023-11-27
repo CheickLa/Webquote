@@ -3,7 +3,41 @@
 
 {% block body %}
     <!-- Formulaire d'inscription-->
-    <div class="flex min-h-screen flex-col bg-indigo-50 p-4 md:p-24">
-        <p class="text-xl">Hello, stay tunned we comming soon</p>
+    <div class="flex min-h-screen flex-col bg-indigo-50 p-4 md:p-24 text-center">
+        <p class="text-3xl">Hello, stay tunned we comming soon</p>
+        
+        <div class="mt-10">
+            {{ form_start(form) }}
+                {{ form_label(form.siret) }}
+                {{ form_widget(form.siret) }}
+
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+
+                {# {{ form_label(form.legal_status) }}
+                {{ form_widget(form.legal_status) }} #}
+
+                {{ form_label(form.sector) }}
+                {{ form_widget(form.sector) }}
+
+                {{ form_label(form.address) }}
+                {{ form_widget(form.address) }}
+
+                {{ form_label(form.phone_number) }}
+                {{ form_widget(form.phone_number) }}
+
+                {{ form_label(form.sales) }}
+                {{ form_widget(form.sales) }}
+
+                {{ form_label(form.role) }}
+                {{ form_widget(form.role) }}
+
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+
+                {{ form_rest(form) }}
+                <button type="submit">S'inscrire</button>
+            {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}
