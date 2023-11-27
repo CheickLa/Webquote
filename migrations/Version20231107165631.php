@@ -26,7 +26,6 @@ final class Version20231107165631 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE service_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE service_category_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE company (id INT NOT NULL, siret VARCHAR(14) NOT NULL, name VARCHAR(255) NOT NULL, legal_status VARCHAR(255) CHECK(legal_status IN (\'EI\', \'EURL\', \'SARL\', \'SA\', \'SAS\')) NOT NULL, sector VARCHAR(255) NOT NULL, address VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, sales DOUBLE PRECISION NOT NULL, role BOOLEAN NOT NULL, email VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('COMMENT ON COLUMN company.legal_status IS \'(DC2Type:LegalStatusType)\'');
         $this->addSql('CREATE TABLE invoice (id INT NOT NULL, quote_id INT NOT NULL, date DATE NOT NULL, amount DOUBLE PRECISION NOT NULL, status BOOLEAN NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_90651744DB805178 ON invoice (quote_id)');
         $this->addSql('CREATE TABLE quote (id INT NOT NULL, client_id INT NOT NULL, date DATE NOT NULL, amount DOUBLE PRECISION NOT NULL, PRIMARY KEY(id))');
