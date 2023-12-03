@@ -30,6 +30,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@fontsource/poppins": "^5.0.8"
+        "@fontsource/inter": "^5.0.15"
     }
 }
