@@ -1,0 +1,14 @@
+{# templates/components/TextField.html.twig #}
+<div class="flex flex-col gap-2.5 self-stretch">
+    <label for="{{ name }}">{{ label }}</label>
+    <input
+        type="{{ type }}"
+        value="{{ value }}"
+        name="{{ name }}"
+        id="{{ name }}"
+        class="rounded-[5px] p-2.5"
+        autocomplete="{{ autocomplete }}"
+        required
+        autofocus
+    />
+</div>

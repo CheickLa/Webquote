@@ -1,31 +1,52 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Log in!{% endblock %}
+{% block title %}Accédez à votre espace
+{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+	<div class="flex h-screen w-screen flex-col items-center justify-start md:justify-center">
+		<div
+			class="flex flex-col gap-[15px] self-stretch p-2.5 md:w-[400px] md:gap-0 md:self-auto md:p-0 md:py-5">
+			<!--App title-->
+			<h1 class="text-center text-2xl font-semibold text-wq-blue-500 md:text-4xl">
+				webquote.
+			</h1>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+			<form method="post" class="flex flex-col items-center md:py-5">
+				{% if error %}
+					<div class="alert alert-danger">
+						{{ error.messageKey|trans(error.messageData, 'security') }}
+					</div>
+				{% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+				<!--Inputs-->
+				<div class="flex flex-col justify-center gap-5 self-stretch">
+					<twig:TextField label="Adresse mail" type="email" name="inputEmail" value="{{ last_username }}" autocomplete="email"/>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+					<twig:TextField label="Mot de passe" type="password" name="inputPassword" autocomplete="current-password"/>
+					<p class="text-right text-wq-blue-500">Mot de passe oublié ?</p>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+				</div>
+
+				<div
+					class="flex flex-col items-center gap-[25px] self-stretch">
+					<!--Checkbox-->
+					<div class="flex self-stretch">
+						<label>
+							<input type="checkbox" name="_remember_me"/>
+							Rester connecté
+						</label>
+					</div>
+
+					<!--Submit button-->
+          <twig:Button value="Se connecter" stretch />
+
+					<!--TODO add register path-->
+					<p>
+						<a href="#" class="text-center text-wq-blue-500">Pas encore de compte ?</a>
+					</p>
+				</div>
+			</form>
+		</div>
+	</div>
 {% endblock %}
