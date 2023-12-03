@@ -1,0 +1,7 @@
+path:
+  - src/
+jobs: 10
+extensions:
+  - php
+warning: true
+no-cache: true
