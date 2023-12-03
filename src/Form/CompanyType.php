@@ -14,7 +14,7 @@ class CompanyType extends AbstractType
         $builder
             ->add('siret')
             ->add('name')
-            // ->add('legal_status')
+            ->add('legal_status')
             ->add('sector')
             ->add('address')
             ->add('phone_number')

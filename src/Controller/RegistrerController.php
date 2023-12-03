@@ -14,7 +14,7 @@ use App\Entity\Company;
 class RegistrerController extends AbstractController
 {
     // Methode pour l'inscription
-    #[Route('/registrer', name: 'app_registrer')]
+    #[Route('/registrer', name: 'app_registrer', methods: ['get', 'post'])]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $company = new Company();
@@ -27,8 +27,9 @@ class RegistrerController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Bravo, vous venez de rejoindre la famille WebQuote !');
-        }
 
+            // return $this->redirectToRoute('app_login');
+        }
         return $this->render('registrer/index.html.twig', [
             'form' => $form->createView()
         ]);
