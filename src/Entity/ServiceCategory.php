@@ -20,10 +20,13 @@ class ServiceCategory
 
     #[ORM\ManyToOne(inversedBy: 'serviceCategories')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Company $company = null;
 
     #[ORM\OneToMany(mappedBy: 'service_category_id', targetEntity: Service::class, orphanRemoval: true)]
     private Collection $services;
+
+    #[ORM\ManyToOne(inversedBy: 'serviceCategories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Agency $agency = null;
 
     public function __construct()
     {
@@ -47,18 +50,6 @@ class ServiceCategory
         return $this;
     }
 
-    public function getCompany(): ?Company
-    {
-        return $this->company;
-    }
-
-    public function setCompany(?Company $company): static
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Service>
      */
@@ -71,7 +62,6 @@ class ServiceCategory
     {
         if (!$this->services->contains($service)) {
             $this->services->add($service);
-            $service->setServiceCategoryId($this);
         }
 
         return $this;
@@ -79,12 +69,18 @@ class ServiceCategory
 
     public function removeService(Service $service): static
     {
-        if ($this->services->removeElement($service)) {
-            // set the owning side to null (unless already changed)
-            if ($service->getServiceCategoryId() === $this) {
-                $service->setServiceCategoryId(null);
-            }
-        }
+        $this->services->removeElement($service);
+        return $this;
+    }
+
+    public function getAgency(): ?Agency
+    {
+        return $this->agency;
+    }
+
+    public function setAgency(?Agency $agency): static
+    {
+        $this->agency = $agency;
 
         return $this;
     }
