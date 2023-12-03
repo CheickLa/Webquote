@@ -28,9 +28,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToOne(inversedBy: 'companyUser', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Company $company = null;
+    private ?Agency $agency = null;
 
     public function getId(): ?int
     {
@@ -102,14 +102,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCompany(): ?Company
+    public function getAgency(): ?Agency
     {
-        return $this->company;
+        return $this->agency;
     }
 
-    public function setCompany(Company $company): static
+    public function setAgency(?Agency $agency): static
     {
-        $this->company = $company;
+        $this->agency = $agency;
 
         return $this;
     }
