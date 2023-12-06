@@ -7,20 +7,24 @@ use App\DataFixtures\AgencyFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher) {}
+
     public function load(ObjectManager $manager): void
     {
-        $faker = \Faker\Factory::create('fr_FR');
+        // TODO also add random users
+        // $faker = \Faker\Factory::create('fr_FR');
         $pwd = 'test';
 
         $user = (new User())
             ->setEmail('user@webquote.fr')
-            ->setPassword($pwd)
             ->setRoles(['ROLE_USER'])
             ->setAgency($this->getReference('agency'))
         ;
+        $user->setPassword($this->passwordHasher->hashPassword($user, $pwd));
         $manager->persist($user);
         $this->addReference('user', $user);
 
