@@ -20,9 +20,9 @@
 
 				<!--Inputs-->
 				<div class="flex flex-col justify-center gap-5 self-stretch">
-					<twig:TextField label="Adresse mail" type="email" name="inputEmail" value="{{ last_username }}" autocomplete="email"/>
+					<twig:TextField label="Adresse mail" type="email" name="email" value="{{ last_username }}" autocomplete="email"/>
 
-					<twig:TextField label="Mot de passe" type="password" name="inputPassword" autocomplete="current-password"/>
+					<twig:TextField label="Mot de passe" type="password" name="password" autocomplete="current-password"/>
 					<p class="text-right text-wq-blue-500">Mot de passe oublié ?</p>
 
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
