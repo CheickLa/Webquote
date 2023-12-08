@@ -15,7 +15,10 @@ body {
   }
 
   .registrerInput{
-    @apply  border shadow-inner w-full lg:w-1/2 sm:w-full py-2 px-3 text-gray-700 text-xl;
+    @apply  border shadow-inner w-full lg:w-full sm:w-full py-2 px-3 text-gray-700 text-lg;
   }
  
+  .btnsubmit{
+    @apply rounded-[5px] bg-wq-blue-500 px-[10px] py-[10px] w-full mt-12 text-xl lg:text-xl font-semibold text-white shadow hover:bg-wq-blue-600;
+  }
 }

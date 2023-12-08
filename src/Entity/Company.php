@@ -42,16 +42,14 @@ class Company
   #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: ServiceCategory::class, orphanRemoval: true)]
   private Collection $serviceCategories;
 
-  #[ORM\OneToMany(mappedBy: 'client_id', targetEntity: Quote::class, orphanRemoval: true)]
-  private Collection $quotes;
-
+ 
   #[ORM\Column(length: 255)]
   private ?string $email = null;
 
   public function __construct()
   {
     $this->serviceCategories = new ArrayCollection();
-    $this->quotes = new ArrayCollection();
+
   }
 
   public function getId(): ?int
@@ -185,35 +183,7 @@ class Company
     return $this;
   }
 
-  /**
-   * @return Collection<int, Quote>
-   */
-  public function getQuotes(): Collection
-  {
-    return $this->quotes;
-  }
-
-  public function addQuote(Quote $quote): static
-  {
-    if (!$this->quotes->contains($quote)) {
-      $this->quotes->add($quote);
-      $quote->setClientId($this);
-    }
-
-    return $this;
-  }
-
-  public function removeQuote(Quote $quote): static
-  {
-    if ($this->quotes->removeElement($quote)) {
-      // set the owning side to null (unless already changed)
-      if ($quote->getClientId() === $this) {
-        $quote->setClientId(null);
-      }
-    }
-
-    return $this;
-  }
+  
 
   public function getEmail(): ?string
   {

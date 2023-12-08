@@ -28,7 +28,7 @@ class RegistrerController extends AbstractController
 
             $this->addFlash('success', 'Bravo, vous venez de rejoindre la famille WebQuote !');
 
-            // return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_login');
         }
         return $this->render('registrer/index.html.twig', [
             'form' => $form->createView()

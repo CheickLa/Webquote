@@ -2,18 +2,20 @@
 {% block title %}Inscrivez vous !{% endblock %}
 
 {% block body %}
-<div class="min-h-screen bg-indigo-50 p-2 md:p-24 flex flex-col">
-     <h1 class="text-2xl md:text-4xl lg:text-6xl text-center">Inscrivez-vous pour profiter de nos services 👨🏽‍💻</h1>
-    <p class="mt-4 text-base md:text-2xl lg:text-3xl text-center">Et prenez de l'avance sur vos concurrents ! 🚀 </p>
+<div class="min-h-screen bg-indigo-50 p-2 md:p-16">
+    <h1 class="text-2xl md:text-4xl lg:text-5xl text-center">Inscrivez-vous pour profiter de nos services 👨🏽‍💻</h1>
+    <p class="mt-4 text-base md:text-2xl lg:text-2xl text-center">Et prenez de l'avance sur vos concurrents ! 🚀 </p>
 
-    <div class="flex flex-col md:flex-row p-8">
-        <img src="{{ asset('build/images/logo2.png') }}" class="object-cover mb-4 md:mb-0 md:flex-1" alt="logo">
-
-        <div class="p-2 bg-white text-center w-full md:w-1/2">
-            {{ form_start(form) }}
-                 <div class="mt-4">
+    <div class="flex items-start justify-center h-screen mt-4 lg:mt-20">
+        <div class="flex flex-col md:flex-row">
+            <div class="flex-1">
+                <img src="{{ asset('build/images/logo1.png') }}" class="md:h-full" alt="logo">
+            </div>
+            <div class="p-8 bg-white text-center flex-1 justify-center flex items-center">
+                {{ form_start(form) }}
+                <div class="mt-4">
                     {{ form_label(form.siret, 'Siret', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.siret, {'attr': {'class': 'registrerInput', 'placeholder':'helloo'}}) }}
+                    {{ form_widget(form.siret, {'attr': {'class': 'registrerInput'}}) }}
                 </div>
 
                 <div class="mt-4">
@@ -22,44 +24,15 @@
                 </div>
 
                 <div class="mt-4">
-                    {{ form_label(form.legal_status, 'Statut légal', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.legal_status, {'attr': {'class': 'registrerInput'}}) }}
-                </div>
-
-                <div class="mt-4">
-                    {{ form_label(form.sector, 'Secteur', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.sector, {'attr': {'class': 'registrerInput'}}) }}
-                </div>
-
-                <div class="mt-4">
-                    {{ form_label(form.address, 'Adresse', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.address, {'attr': {'class': 'registrerInput'}}) }}
-                </div>
-
-                <div class="mt-4">
-                    {{ form_label(form.phone_number, 'Numéro de téléphone', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.phone_number, {'attr': {'class': 'registrerInput'}}) }}
-                </div>
-
-                <div class="mt-4">
-                    {{ form_label(form.sales, 'Ventes', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.sales, {'attr': {'class': 'registrerInput'}}) }}
-                </div>
-
-                <div class="mt-4">
                     {{ form_label(form.email, 'Email', {'label_attr': {'class': 'registrerLabel'}}) }}
                     {{ form_widget(form.email, {'attr': {'class': 'registrerInput'}}) }}
                 </div>
 
-                <div class="mt-4">
-                    {{ form_label(form.role, 'Rôle', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.role, {'attr': {'class': 'border shadow-inner py-2 px-3 text-gray-700'}}) }}
-                </div>
-
                 {{ form_rest(form) }}
-                <button type="submit" class="text-white bg-blue-500 px-4 py-2 w-full mt-4 text-xl lg:text-3xl rounded-xl">S'inscrire</button>
-            {{ form_end(form) }}
+                <button type="submit" class="btnsubmit">S'inscrire</button>
+                {{ form_end(form) }}
+            </div>
         </div>
     </div>
-</div>
+
 {% endblock %}
