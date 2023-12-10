@@ -14,7 +14,6 @@ class AgencyType extends AbstractType
         $builder
             ->add('siren')
             ->add('name')
-            ->add('email')
         ;
     }
 

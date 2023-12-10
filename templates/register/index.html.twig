@@ -23,11 +23,6 @@
                     {{ form_widget(form.name, {'attr': {'class': 'registerInput'}}) }}
                 </div>
 
-                <div class="mt-4">
-                    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'registerLabel'}}) }}
-                    {{ form_widget(form.email, {'attr': {'class': 'registerInput'}}) }}
-                </div>
-
                 {{ form_rest(form) }}
                 <button type="submit" class="btnsubmit">S'inscrire</button>
                 {{ form_end(form) }}
