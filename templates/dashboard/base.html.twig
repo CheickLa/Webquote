@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Hello DashboardController!
+{% endblock %}
+
+{% block body %}
+	<div class="w-screen min-h-screen flex flex-1">
+		<twig:Sidebar/>
+
+    <div class="flex flex-1 p-2.5 flex-col self-stretch">
+      {# Header #}
+      <div class="flex px-[30px] pb-2.5 pt-5 justify-between items-center self-stretch">
+        {# Breadcrumbs #}
+        <div class="hidden lg:block">
+          <p class="text-base text-gray-500">Dashboard / <span class="text-base text-black">{% block breadcrumbs %}{% endblock %}</span></p>
+        </div>
+
+        {# Username + logout button #}
+        <div class="flex flex-1 lg:flex-initial gap-5 justify-center items-center">
+          {# Menu button on mobile #}
+          <div class="lg:hidden" id="menu">
+            <button class="flex p-3 justify-center items-center rounded-md bg-wq-blue-500">
+              <span class="material-icons text-white">menu</span>
+            </button>
+          </div>
+
+
+          <div class="flex flex-1 lg:flex-initial py-3 lg:py-1 px-2.5 justify-center items-center rounded-md bg-white">
+            <p>{{ app.user.email }}</p>
+          </div>
+
+          <a href="{{ path('app_logout') }}">
+            <div class="flex p-3 lg:p-1 justify-center items-center rounded-md bg-white">
+              <span class="material-icons text-wq-blue-500">logout</span>
+            </div>
+          </a>
+        </div> 
+      </div>
+
+      {# Content #}
+      <main class="flex py-2.5 px-[30px] flex-col gap-5 flex-1 self-stretch">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+	</div>
+
+  <script>
+    const menu = document.querySelector('#menu');
+    const sidebar = document.querySelector('#sidebar');
+
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.add('top-0');
+    });
+
+    document.addEventListener('click', () => {
+      sidebar.classList.remove('top-0');
+    });
+  </script>
+{% endblock %}
