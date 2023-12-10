@@ -9,7 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\AgencyType;
 use App\Entity\Agency;
-
+use App\Entity\User;
+use App\Form\AgencyUserType;
 
 class RegisterController extends AbstractController
 {
@@ -33,5 +34,11 @@ class RegisterController extends AbstractController
         return $this->render('register/index.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    #[Route(path: '/register/user', name: 'app_register_user')]
+    public function registerUser(): Response
+    {
+        return $this->render('register/user.html.twig');
     }
 }
