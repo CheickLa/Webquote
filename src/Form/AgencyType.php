@@ -2,17 +2,17 @@
 
 namespace App\Form;
 
-use App\Entity\Company;
+use App\Entity\Agency;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CompanyType extends AbstractType
+class AgencyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('siret')
+            ->add('siren')
             ->add('name')
             ->add('email')
         ;
@@ -21,7 +21,7 @@ class CompanyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Company::class,
+            'data_class' => Agency::class,
         ]);
     }
 }

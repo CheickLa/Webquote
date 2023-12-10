@@ -14,18 +14,18 @@
             <div class="p-8 bg-white text-center flex-1 justify-center flex items-center">
                 {{ form_start(form) }}
                 <div class="mt-4">
-                    {{ form_label(form.siret, 'Siret', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.siret, {'attr': {'class': 'registrerInput'}}) }}
+                    {{ form_label(form.siren, 'Siren', {'label_attr': {'class': 'registerLabel'}}) }}
+                    {{ form_widget(form.siren, {'attr': {'class': 'registerInput'}}) }}
                 </div>
 
                 <div class="mt-4">
-                    {{ form_label(form.name, 'Nom', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.name, {'attr': {'class': 'registrerInput'}}) }}
+                    {{ form_label(form.name, 'Nom', {'label_attr': {'class': 'registerLabel'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'registerInput'}}) }}
                 </div>
 
                 <div class="mt-4">
-                    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'registrerLabel'}}) }}
-                    {{ form_widget(form.email, {'attr': {'class': 'registrerInput'}}) }}
+                    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'registerLabel'}}) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'registerInput'}}) }}
                 </div>
 
                 {{ form_rest(form) }}
