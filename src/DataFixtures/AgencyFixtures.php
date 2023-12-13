@@ -14,16 +14,14 @@ class AgencyFixtures extends Fixture
 
     $agency = (new Agency())
       ->setSiren('830256558')
-      ->setName('Avanseo')
-      ->setEmail('hello@avanseo.eu');
+      ->setName('Avanseo');
     $manager->persist($agency);
     $this->addReference('agency', $agency);
 
     for ($i = 0; $i < 10; $i++) {
       $agency = (new Agency())
         ->setSiren(strval($faker->randomNumber(9, true)))
-        ->setName($faker->company())
-        ->setEmail($faker->email());
+        ->setName($faker->company());
       $manager->persist($agency);
     }
 

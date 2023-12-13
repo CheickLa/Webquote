@@ -21,9 +21,6 @@ class Agency
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
-
     #[ORM\OneToMany(mappedBy: 'agency', targetEntity: Client::class, orphanRemoval: true)]
     private Collection $clients;
 
@@ -65,18 +62,6 @@ class Agency
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
 
         return $this;
     }
