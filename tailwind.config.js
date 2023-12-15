@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'wq-blue': {
+        'webquote': {
           '50': '#f1f7fe',
           '100': '#e2edfc',
           '200': '#bfd9f8',
@@ -20,7 +20,9 @@ module.exports = {
           '900': '#143866',
           '950': '#0d2444',
         },
-
+      },
+      borderRadius: {
+        '10': '0.625rem', // 10px
       }
     },
   },

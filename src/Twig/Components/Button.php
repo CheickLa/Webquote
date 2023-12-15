@@ -7,6 +7,6 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent]
 class Button
 {
-    public string $value;
-    public bool $stretch = false;
+  public string $id;
+  public string $class = '';
 }

@@ -1,15 +1,17 @@
 <nav
-	class="absolute -top-full transition-all duration-500 lg:static lg:transition-none flex flex-col w-full lg:w-1/5 self-stretch py-2.5 px-5 gap-[15px] bg-wq-blue-500" id="sidebar">
+	class="absolute -top-full transition-all motion-reduce:transition-none duration-500 md:static md:transition-none flex flex-col w-full md:w-auto self-stretch py-2.5 px-[25px] gap-[15px] bg-white" id="sidebar">
 	<!--Logo-->
 	<div class="flex items-center justify-center py-5">
-		<span class="text-white text-4xl font-semibold">webquote.</span>
+		<span class="text-webquote-500 text-3xl md:text-4xl font-semibold">webquote</span>
 	</div>
 
 	<!--Items-->
-	<twig:SidebarItem value="Accueil" icon="home" route="app_dashboard"/>
-	<twig:SidebarItem value="Clients" icon="people"/>
-	<twig:SidebarItem value="Prestations" icon="shopping_cart" route="app_service_category_index"/>
-	<twig:SidebarItem value="Devis" icon="request_quote"/>
-	<twig:SidebarItem value="Factures" icon="credit_card"/>
-	<twig:SidebarItem value="Paramètres" icon="settings"/>
+	<div class="flex flex-col items-center gap-2.5 md:gap-[30px]">
+		<twig:SidebarItem value="Accueil" icon="home" route="app_dashboard"/>
+		<twig:SidebarItem value="Clients" icon="users"/>
+		<twig:SidebarItem value="Prestations" icon="tools" route="app_service_category_index"/>
+		<twig:SidebarItem value="Devis" icon="file-import"/>
+		<twig:SidebarItem value="Factures" icon="wallet"/>
+		<twig:SidebarItem value="Paramètres" icon="settings"/>
+	</div>
 </nav>

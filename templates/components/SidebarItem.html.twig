@@ -1,8 +1,8 @@
 {% set currentRoute = app.request.get('_route') %}
-{% set active = route is defined ? (currentRoute == route) : false %}
-<a href="{{ route is defined ? path(route) : '#' }}">
-	<div class="flex w-full p-2.5 items-center gap-5 rounded-md {{ active ? 'bg-[#ffffff38]' : 'hover:bg-[#ffffff1a]' }}">
-		<span class="material-icons text-white">{{ icon }}</span>
-		<span class="text-white text-lg">{{ value }}</span>
-	</div>
+{% set compare = prefix|default(route|default(null)) %}
+{% set active = compare is defined ? (currentRoute starts with compare) : false %}
+
+<a href="{{ route is defined ? path(route) : '#' }}" class="self-stretch flex py-[15px] px-5 items-center gap-5 rounded-10 {{ active ? 'bg-[#F1F6FA] border border-webquote-700' : 'hover:bg-[#dbdbdb]' }}">
+	<i class="ti ti-{{ icon }} {{ active ? 'text-webquote-500' : 'text-gray-500' }}"></i>
+	<span class="text-xl {{ active ? 'font-semibold' : 'text-gray-500' }}">{{ value }}</span>
 </a>

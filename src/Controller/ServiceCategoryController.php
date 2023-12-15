@@ -57,7 +57,8 @@ class ServiceCategoryController extends AbstractController
       'service_category' => $serviceCategory,
       'form' => $form,
       'title' => 'Ajouter une catégorie de prestations',
-      'buttonText' => 'Ajouter'
+      'buttonText' => 'Ajouter',
+      'icon' => 'ti-playlist-add'
     ]);
   }
 
@@ -79,7 +80,8 @@ class ServiceCategoryController extends AbstractController
       'service_category' => $serviceCategory,
       'form' => $form,
       'title' => 'Modifier ' . $serviceCategory->getName(),
-      'buttonText' => 'Modifier'
+      'buttonText' => 'Modifier',
+      'icon' => 'ti-edit'
     ]);
   }
 

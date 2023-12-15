@@ -5,10 +5,9 @@ namespace App\Twig\Components;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
-class SidebarItem
+class ButtonLink 
 {
-  public string $value;
-  public string $icon;
-  public string $route;
-  public string $prefix;
+  public string $href;
+  public string $id; 
+  public string $class = '';
 }

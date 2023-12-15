@@ -11,50 +11,53 @@
 {% endblock %}
 
 {% block content %}
-	<div class="flex gap-2.5 flex-col items-start">
-		<h1 class="text-xl font-semibold">Sélectionner une catégorie</h1>
+	{# Buttons #}
+	<div
+		class="flex md:gap-2.5 py-2.5 items-start order-2 md:order-1 justify-between self-stretch md:justify-start md:self-auto">
+		{# Add #}
+		<twig:ButtonLink href="{{ path('app_service_category_new') }}" id="add-btn" class="bg-webquote-500 hover:bg-webquote-600 text-white flex-1 md:flex-auto justify-center md:justify-start">
+			<i class="ti ti-playlist-add"></i>
+			Ajouter
+		</twig:ButtonLink>
 
-		<div class="flex self-stretch justify-between gap-2.5">
-			<form method="post" id="sc-select" action="{{ path('app_service_category_index') }}">
-				<twig:Select name="selected">
-					{% for sc in service_categories %}
-						<option value="{{ sc.id }}" {% if sc.id == service_category.id %}selected{% endif %}>{{ sc.name }}</option>
-					{% else %}
-						<option value="">Pas de catégorie</option>
-					{% endfor %}
-				</twig:Select>
+		{# Edit #}
+    {% if service_category is not null %}
+      <twig:ButtonLink href="{{ path('app_service_category_edit', {'id': service_category.id}) }}" id="edit-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
+			  <i class="ti ti-edit"></i>
+			  Modifier
+		</twig:ButtonLink>
+    {% endif %}
 
-				<input type="hidden" name="_token" value="{{ csrf_token('select') }}">
-			</form>
+		{# Delete #}
+    {% if service_category is not null %}
+        <form method="post" action="{{ path('app_service_category_delete', {'id': service_category.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer cette catégorie de prestations ?')">
+			  <twig:Button id="delete-btn" class="bg-gray-900 hover:bg-black text-white">
+				  <i class="ti ti-trash"></i>
+          <span class="hidden md:inline">Supprimer</span>
+			  </twig:Button>
 
-			<div
-				class="flex gap-2.5">
-				{# Add #}
-				<twig:IconLink href="{{ path('app_service_category_new') }}" id="add-btn" class="bg-wq-blue-500 hover:bg-wq-blue-600">
-					<span class="material-icons text-white">add</span>
-				</twig:IconLink>
-
-				{# Edit #}
-				<twig:IconLink href="{{ path('app_service_category_edit', {'id': service_category.id}) }}" id="edit-btn" class="bg-yellow-400 hover:bg-yellow-500">
-					<span class="material-icons text-white">edit</span>
-				</twig:IconLink>
-
-				{# Delete #}
-				<form method="post" action="{{ path('app_service_category_delete', {'id': service_category.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer cette catégorie de prestations ?')">
-					<twig:IconButton id="delete-btn" class="bg-red-400 hover:bg-red-500">
-						<span class="material-icons text-white">delete</span>
-					</twig:IconButton>
-
-					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service_category.id) }}">
-				</form>
-			</div>
-		</div>
+			  <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service_category.id) }}">
+		  </form>
+    {% endif %}
 	</div>
+
+  {# Select #}
+	<form method="post" id="sc-select" action="{{ path('app_service_category_index') }}" class="self-stretch md:self-auto order-1 md:order-2">
+		<twig:Select name="selected" label="Sélectionner une catégorie" class="flex-1 md:flex-auto">
+			{% for sc in service_categories %}
+				<option value="{{ sc.id }}" {% if sc.id == service_category.id %} selected {% endif %}>{{ sc.name }}</option>
+			{% else %}
+				<option value="">Pas de catégorie</option>
+			{% endfor %}
+		</twig:Select>
+
+		<input type="hidden" name="_token" value="{{ csrf_token('select') }}">
+	</form>
 
 	<script>
 		const select = document.querySelector('#sc-select');
-select.addEventListener('change', () => {
-select.submit();
-});
+    select.addEventListener('change', () => {
+      select.submit();
+    });
 	</script>
 {% endblock %}

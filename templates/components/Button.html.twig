@@ -1,4 +1,4 @@
 {# templates/components/Button.html.twig #}
-<button class="{{ stretch ? 'flex-1 self-stretch' : '' }} rounded-[5px] bg-wq-blue-500 px-[10px] py-2 text-lg font-semibold text-white shadow hover:bg-wq-blue-600" type="submit">
-	{{ value }}
+<button type="submit" id="{{ id }}" class="rounded-10 p-2.5 flex items-start gap-2 {{ class }}">
+  {% block content %}{% endblock %}
 </button>

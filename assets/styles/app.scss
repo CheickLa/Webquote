@@ -3,14 +3,18 @@
 @tailwind utilities;
 
 
-@import "@fontsource/inter";
-@import "@fontsource/inter/500.css";
-@import "@fontsource/inter/600.css";
-@import "@fontsource/inter/700.css";
-@import 'material-icons/iconfont/material-icons.css';
+@import "@fontsource/poppins";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@tabler/icons-webfont/tabler-icons.css";
 
 body {
-  font-family: "Inter";
+  font-family: "Poppins";
+}
+
+.ti {
+  font-size: 24px;
 }
 
 @layer components
@@ -24,6 +28,6 @@ body {
   }
  
   .btnsubmit{
-    @apply rounded-[5px] bg-wq-blue-500 px-[10px] py-[10px] w-full mt-12 text-xl lg:text-xl font-semibold text-white shadow hover:bg-wq-blue-600;
+    @apply rounded-[5px] bg-webquote-500 px-[10px] py-[10px] w-full mt-12 text-xl lg:text-xl font-semibold text-white shadow hover:bg-webquote-600;
   }
 }
