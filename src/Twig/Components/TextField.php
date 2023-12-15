@@ -8,7 +8,7 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class TextField
 {
     public string $label;
-    public string $type;
+    public string $type = 'text';
     public string $name;
     public string $value = '';
     public string $autocomplete = 'on';

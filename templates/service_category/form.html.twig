@@ -1,0 +1,28 @@
+{# Formulaire d'ajout et de modification #}
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Prestations
+{% endblock %}
+
+{% block breadcrumbs %}Prestations
+{% endblock %}
+
+{% block content %}
+	{{ form_start(form, {
+    attr: {
+      class: 'flex flex-col items-start gap-[30px] self-stretch',
+    }
+  }) }}
+  <h1 class="text-2xl">{{ title }}</h1>
+
+	{{ form_errors(form.name) }}
+
+	<twig:TextField name="{{ field_name(form.name) }}" value="{{ field_value(form.name)|default('') }}" label="Nom" />
+	{{ form_row(form._token) }}
+
+	<div class="flex items-start gap-2.5 self-stretch">
+    <twig:BackButton href="{{ path('app_service_category_index') }}" />
+		<twig:Button value="{{ buttonText }}" stretch/>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

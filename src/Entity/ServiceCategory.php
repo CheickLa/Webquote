@@ -21,7 +21,7 @@ class ServiceCategory
     #[ORM\ManyToOne(inversedBy: 'serviceCategories')]
     #[ORM\JoinColumn(nullable: false)]
 
-    #[ORM\OneToMany(mappedBy: 'service_category_id', targetEntity: Service::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'service_category', targetEntity: Service::class, orphanRemoval: true)]
     private Collection $services;
 
     #[ORM\ManyToOne(inversedBy: 'serviceCategories')]

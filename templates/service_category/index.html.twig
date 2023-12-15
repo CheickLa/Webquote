@@ -1,0 +1,60 @@
+{% set base_url = path('app_service_category_index') %}
+
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}
+	Prestations
+{% endblock %}
+
+{% block breadcrumbs %}
+	Prestations
+{% endblock %}
+
+{% block content %}
+	<div class="flex gap-2.5 flex-col items-start">
+		<h1 class="text-xl font-semibold">Sélectionner une catégorie</h1>
+
+		<div class="flex self-stretch justify-between gap-2.5">
+			<form method="post" id="sc-select" action="{{ path('app_service_category_index') }}">
+				<twig:Select name="selected">
+					{% for sc in service_categories %}
+						<option value="{{ sc.id }}" {% if sc.id == service_category.id %}selected{% endif %}>{{ sc.name }}</option>
+					{% else %}
+						<option value="">Pas de catégorie</option>
+					{% endfor %}
+				</twig:Select>
+
+				<input type="hidden" name="_token" value="{{ csrf_token('select') }}">
+			</form>
+
+			<div
+				class="flex gap-2.5">
+				{# Add #}
+				<twig:IconLink href="{{ path('app_service_category_new') }}" id="add-btn" class="bg-wq-blue-500 hover:bg-wq-blue-600">
+					<span class="material-icons text-white">add</span>
+				</twig:IconLink>
+
+				{# Edit #}
+				<twig:IconLink href="{{ path('app_service_category_edit', {'id': service_category.id}) }}" id="edit-btn" class="bg-yellow-400 hover:bg-yellow-500">
+					<span class="material-icons text-white">edit</span>
+				</twig:IconLink>
+
+				{# Delete #}
+				<form method="post" action="{{ path('app_service_category_delete', {'id': service_category.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer cette catégorie de prestations ?')">
+					<twig:IconButton id="delete-btn" class="bg-red-400 hover:bg-red-500">
+						<span class="material-icons text-white">delete</span>
+					</twig:IconButton>
+
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service_category.id) }}">
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const select = document.querySelector('#sc-select');
+select.addEventListener('change', () => {
+select.submit();
+});
+	</script>
+{% endblock %}

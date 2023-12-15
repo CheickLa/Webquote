@@ -8,9 +8,9 @@
 	<div class="w-screen min-h-screen flex flex-1">
 		<twig:Sidebar/>
 
-    <div class="flex flex-1 p-2.5 flex-col self-stretch">
+    <div class="flex flex-1 lg:p-2.5 flex-col self-stretch">
       {# Header #}
-      <div class="flex px-[30px] pb-2.5 pt-5 justify-between items-center self-stretch">
+      <div class="flex p-2.5 lg:px-[30px] lg:pb-2.5 lg:pt-5 justify-between items-center self-stretch">
         {# Breadcrumbs #}
         <div class="hidden lg:block">
           <p class="text-base text-gray-500">Dashboard / <span class="text-base text-black">{% block breadcrumbs %}{% endblock %}</span></p>
@@ -39,7 +39,7 @@
       </div>
 
       {# Content #}
-      <main class="flex py-2.5 px-[30px] flex-col gap-5 flex-1 self-stretch">
+      <main class="flex p-2.5 lg:py-2.5 lg:px-[30px] flex-col gap-5 flex-1 self-stretch">
         {% block content %}{% endblock %}
       </main>
     </div>
