@@ -9,12 +9,14 @@
 @import "@fontsource/poppins/700.css";
 @import "@tabler/icons-webfont/tabler-icons.css";
 
-body {
-  font-family: "Poppins";
-}
+@layer base {
+  body {
+    font-family: "Poppins";
+  }
 
-.ti {
-  font-size: 24px;
+  .ti {
+    font-size: 24px;
+  }
 }
 
 @layer components

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+  <div class="flex w-full min-h-screen">
+    {# Left side #}
+    <div class="hidden md:flex flex-col p-10 justify-center items-start gap-5 basis-1/2 self-stretch bg-webquote-500">
+      <h3 class="text-white text-2xl font-semibold">Utiliser Webquote, c&apos;est...</h3>
+
+      <div class="flex py-5 px-8 items-center gap-[30px] self-stretch">
+        <i class="ti ti-file-invoice text-[96px] text-white"></i>
+        <h4 class="text-white text-2xl">Gérer les devis et factures de vos clients facilement</h4>
+      </div>
+
+      <div class="flex py-5 px-8 items-center gap-[30px] self-stretch">
+        <i class="ti ti-chart-line text-[96px] text-white"></i>
+        <h4 class="text-white text-2xl">Visualiser les performances de votre agence en un clin d&apos;oeil</h4>
+      </div>
+    </div>
+
+    {# Right side #}
+    <main class="flex flex-1 md:basis-1/2 p-5 md:py-2.5 md:px-[60px] flex-col md:justify-center gap-2.5 md:gap-[60px] self-stretch items-center">
+      <h1 class="md:hidden text-webquote-500 font-semibold text-2xl">
+        {% block mobileText %}{% endblock %}
+      </h1>
+
+      <div class="hidden md:flex flex-col gap-[5px] self-stretch">
+        <h1 class="text-3xl font-semibold">
+          {% block primaryText %}{% endblock %}
+        </h1>
+        <h2 class="text-3xl font-semibold text-webquote-500">
+          {% block secondaryText %}{% endblock %}
+        </h2>
+      </div>
+
+      {% block form %}{% endblock %}
+    </main>
+  </div>
+{% endblock %}

@@ -1,57 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'register/base.html.twig' %}
 
 {% block title %}
-  Renseignez vos identifiants utilisateur
+	Renseignez vos identifiants utilisateur
 {% endblock %}
 
-{% block body %}
-  <div class="flex w-full min-h-screen">
-    {# Left side #}
-    <div class="hidden md:flex basis-1/2 self-stretch bg-webquote-500"></div>
+{% block mobileText %}Vos identifiants{% endblock %}
+{% block primaryText %}Plus qu&apos;une étape...{% endblock %}
+{% block secondaryText %}Vos identifiants utilisateur{% endblock %}
 
-    {# Right side #}
-    <main class="flex flex-1 md:basis-1/2 p-5 md:py-2.5 md:px-[60px] flex-col md:justify-center gap-2.5 md:gap-[60px] self-stretch items-center">
-      <h1 class="md:hidden text-webquote-500 font-semibold text-2xl">Vos identifiants</h1>
-
-      <div class="hidden md:flex flex-col gap-[5px] self-stretch">
-        <h1 class="text-3xl font-semibold">Plus qu'une étape...</h1>
-        <h2 class="text-3xl font-semibold text-webquote-500">Vos identifiants utilisateur</h2>
-      </div>
-
-      {# Form #}
-      {{ form_start(form, {
+{% block form %}
+	{{ form_start(form, {
         attr: {
           class: 'flex flex-col self-stretch py-5 gap-[30px]',
         }
       }) }}
-        {{ form_errors(form.email) }}
-        {{ form_errors(form.password) }}
+	{{ form_errors(form.email) }}
+	{{ form_errors(form.password) }}
 
-				<!--Inputs-->
-				<div class="flex flex-col justify-center gap-5 self-stretch">
-					<twig:TextField label="Adresse mail" type="email" name="{{ field_name(form.email) }}" value="{{ field_value(form.email) }}" autocomplete="email"/>
+	<!--Inputs-->
+	<div class="flex flex-col justify-center gap-5 self-stretch">
+		<twig:TextField label="Adresse mail" type="email" name="{{ field_name(form.email) }}" value="{{ field_value(form.email) }}" autocomplete="email"/>
 
-					<twig:TextField label="Mot de passe" type="password" name="{{ field_name(form.password) }}" value="{{ field_value(form.password) }}" autocomplete="new-password"/>
+		<twig:TextField
+		label="Mot de passe" type="password" name="{{ field_name(form.password) }}" value="{{ field_value(form.password) }}" autocomplete="new-password"/>
 
-          {# CSRF Token #}
-          {{ form_row(form._token) }}
-				</div>
+		{# CSRF Token #}
+		{{ form_row(form._token) }}
+	</div>
 
-				<div
-					class="flex items-center gap-2.5 self-stretch">
-          <twig:ButtonLink href="{{ path('app_register') }}" id="back-btn" class="flex-1 justify-center bg-gray-100 hover:bg-gray-200">
-            <i class="ti ti-arrow-narrow-left"></i>
-            Retour
-          </twig:ButtonLink>
+	<div class="flex items-center gap-2.5 self-stretch">
+		<twig:ButtonLink href="{{ path('app_register') }}" id="back-btn" class="flex-1 justify-center bg-gray-100 hover:bg-gray-200">
+			<i class="ti ti-arrow-narrow-left"></i>
+			Retour
+		</twig:ButtonLink>
 
-          <twig:Button id="register-btn" class="text-white bg-webquote-500 hover:bg-webquote-600 flex-1 justify-center"> 
-            S'inscrire
-            <i class="ti ti-arrow-narrow-right"></i>
-          </twig:Button>
-				</div>
-			</div>
-      {{ form_end(form) }}
-
-    </main>
-  </div>
+		<twig:Button id="register-btn" class="text-white bg-webquote-500 hover:bg-webquote-600 flex-1 justify-center">
+			S'inscrire
+			<i class="ti ti-arrow-narrow-right"></i>
+		</twig:Button>
+	</div>
+  {{ form_end(form) }}
 {% endblock %}
