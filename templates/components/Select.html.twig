@@ -3,7 +3,7 @@
 	<label for="{{ id|default(name) }}">
 		{{ label }}
 	</label>
-	<select name="{{ name }}" id="{{ id|default(name) }}" class="p-2.5 rounded-10 border border-gray-300">
+	<select name="{{ name }}" id="{{ id|default(name) }}" class="p-2.5 rounded-10 bg-white border border-gray-300">
     {% block content %}{% endblock %}
 	</select>
 </div>
