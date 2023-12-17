@@ -23,7 +23,7 @@
 				</div>
 
         {# Mobile only #}
-        <i class="md:hidden ti ti-menu-2 cursor-pointer text-webquote-500" id="menu"></i>
+        <i class="md:hidden ti ti-menu-2 cursor-pointer text-webquote-500" id="menu-open-btn"></i>
         <p class="md:hidden text-xl text-webquote-500 font-semibold">webquote</p>
 
 
@@ -47,16 +47,16 @@
 	</div>
 
 	<script>
-		const menu = document.querySelector('#menu');
+		const openButton = document.querySelector('#menu-open-btn');
     const sidebar = document.querySelector('#sidebar');
+    const closeButton = document.querySelector('#menu-close-btn');
 
-    menu.addEventListener('click', (e) => {
-      e.stopPropagation();
-      sidebar.classList.add('top-0');
+    openButton.addEventListener('click', (e) => {
+      sidebar.classList.remove('hidden');
     });
 
-    document.addEventListener('click', () => {
-      sidebar.classList.remove('top-0');
+    closeButton.addEventListener('click', () => {
+      sidebar.classList.add('hidden');
     });
 	</script>
 {% endblock %}
