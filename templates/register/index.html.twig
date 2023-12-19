@@ -1,33 +1,35 @@
-{% extends 'base.html.twig' %}
-{% block title %}Inscrivez vous !{% endblock %}
+{% extends 'register/base.html.twig' %}
 
-{% block body %}
-<div class="min-h-screen p-2 md:p-16">
-    <h1 class="text-2xl md:text-4xl lg:text-5xl text-center">Inscrivez-vous pour profiter de nos services 👨🏽‍💻</h1>
-    <p class="mt-4 text-base md:text-2xl lg:text-2xl text-center">Et prenez de l'avance sur vos concurrents ! 🚀 </p>
+{% block title %}Inscrivez-vous !{% endblock %}
 
-    <div class="flex items-start justify-center h-screen mt-4 lg:mt-20">
-        <div class="flex flex-col md:flex-row">
-            <div class="flex-1">
-                <img src="{{ asset('build/images/logo1.png') }}" class="md:h-full" alt="logo">
-            </div>
-            <div class="p-8 bg-white text-center flex-1 justify-center flex items-center">
-                {{ form_start(form) }}
-                <div class="mt-4">
-                    {{ form_label(form.siren, 'Siren', {'label_attr': {'class': 'registerLabel'}}) }}
-                    {{ form_widget(form.siren, {'attr': {'class': 'registerInput'}}) }}
-                </div>
+{% block mobileText %}Inscrivez vous {% endblock %}
+{% block primaryText %}Inscrivez-vous..{% endblock %}
+{% block secondaryText %}Et prenez de l'avance sur vos concurrents 🚀{% endblock %}
 
-                <div class="mt-4">
-                    {{ form_label(form.name, 'Nom', {'label_attr': {'class': 'registerLabel'}}) }}
-                    {{ form_widget(form.name, {'attr': {'class': 'registerInput'}}) }}
-                </div>
+{% block form %}
+	{{ form_start(form, {attr: {class: 'flex flex-col self-stretch py-5 gap-[30px]',}}) }}
+        {{ form_errors(form.siren) }}
+        {{ form_errors(form.name) }}
 
-                {{ form_rest(form) }}
-                <button type="submit" class="btnsubmit">S'inscrire</button>
-                {{ form_end(form) }}
-            </div>
+        <!--Inputs-->
+        <div class="flex flex-col justify-center gap-5 self-stretch">
+            <twig:TextField label="Siren" type="text" name="{{ field_name(form.siren) }}" value="{{ field_value(form.siren) }}" autocomplete="off"/>
+            <twig:TextField label="Nom" type="text" name="{{ field_name(form.name) }}" value="{{ field_value(form.name) }}" autocomplete="organization"/>
+            
+            {{ form_row(form._token) }}
         </div>
-    </div>
 
+        <div class="flex items-center gap-2.5 self-stretch">
+            <twig:ButtonLink href="{{ path('app_home') }}" id="back-btn" class="flex-1 justify-center bg-gray-100 hover:bg-gray-200">
+                <i class="ti ti-arrow-narrow-left"></i>
+                Retour
+            </twig:ButtonLink>
+            <twig:Button id="register-btn" class="text-white bg-webquote-500 hover:bg-webquote-600 flex-1 justify-center">
+                Continuer
+                <i class="ti ti-arrow-narrow-right"></i>
+            </twig:Button>   
+        </div>
+        <div class="text-center"><a href="{{ path('app_login') }}" class="text-center text-webquote-500">Déjà inscrit ?</a></div>
+  {{ form_end(form) }}
 {% endblock %}
+
