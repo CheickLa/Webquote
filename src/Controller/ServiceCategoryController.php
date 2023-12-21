@@ -57,6 +57,8 @@ class ServiceCategoryController extends AbstractController
       $entityManager->persist($serviceCategory);
       $entityManager->flush();
 
+      $this->addFlash('success', 'Catégorie de prestations ajoutée');
+
       return $this->redirectToRoute('app_service_category_index', [
         'id' => $serviceCategory->getId()
       ], Response::HTTP_SEE_OTHER);
@@ -82,6 +84,8 @@ class ServiceCategoryController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $entityManager->flush();
 
+      $this->addFlash('success', 'Catégorie de prestations modifiée');
+
       return $this->redirectToRoute('app_service_category_index', [
         'id' => $serviceCategory->getId()
       ], Response::HTTP_SEE_OTHER);
@@ -104,6 +108,8 @@ class ServiceCategoryController extends AbstractController
     if ($this->isCsrfTokenValid('delete' . $serviceCategory->getId(), $request->request->get('_token'))) {
       $entityManager->remove($serviceCategory);
       $entityManager->flush();
+
+      $this->addFlash('success', 'Catégorie de prestations supprimée');
     }
 
     return $this->redirectToRoute('app_service_category_index', [], Response::HTTP_SEE_OTHER);

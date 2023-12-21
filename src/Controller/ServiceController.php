@@ -26,6 +26,8 @@ class ServiceController extends AbstractController
             $entityManager->persist($service);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Prestation ajoutée');
+
             return $this->redirectToRoute('app_service_category_index', ['id' => $service->getServiceCategory()->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -49,6 +51,8 @@ class ServiceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->denyAccessUnlessGranted('EDIT', $service);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Prestation modifiée');
 
             return $this->redirectToRoute('app_service_category_index', [
                 'id' => $service->getServiceCategory()->getId()
@@ -75,6 +79,8 @@ class ServiceController extends AbstractController
             $this->denyAccessUnlessGranted('DELETE', $service);
             $entityManager->remove($service);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Prestation supprimée');
         }
 
         // On renvoie la catégorie de prestation pour rester sur celle-ci à l'affichage après la suppression

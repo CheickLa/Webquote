@@ -28,6 +28,10 @@ Encore
       from: './assets/images',
       to: 'images/[path][name].[ext]'
     })
+    .copyFiles({
+      from: './assets/node-snackbar',
+      to: 'node-snackbar/[path][name].[ext]'
+    })
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
