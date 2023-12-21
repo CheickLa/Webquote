@@ -23,7 +23,7 @@
 					<twig:TextField label="Adresse mail" type="email" name="email" value="{{ last_username }}" autocomplete="email"/>
 
 					<twig:TextField label="Mot de passe" type="password" name="password" autocomplete="current-password"/>
-					<p class="text-right text-webquote-500">Mot de passe oublié ?</p>
+        <a href="{{ path('app_forgot_password_request') }}"><p class="text-right text-webquote-500">Mot de passe oublié ?</p></a>
 
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 				</div>
