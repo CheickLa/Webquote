@@ -6,6 +6,7 @@ use App\Repository\AgencyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AgencyRepository::class)]
 class Agency
@@ -15,7 +16,9 @@ class Agency
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 9)]
+    #[Assert\NotBlank]
+    #[Assert\Luhn(message: 'Veuillez entrer un numéro de SIREN valide à 9 chiffres')]
+    #[ORM\Column(unique: true, length: 9)]
     private ?string $siren = null;
 
     #[ORM\Column(length: 255)]
@@ -49,7 +52,7 @@ class Agency
 
     public function setSiren(string $siren): static
     {
-        $this->siren = $siren;
+        $this->siren = str_replace(' ', '', $siren);
 
         return $this;
     }

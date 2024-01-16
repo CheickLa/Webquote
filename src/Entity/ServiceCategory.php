@@ -6,6 +6,7 @@ use App\Repository\ServiceCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ServiceCategoryRepository::class)]
 class ServiceCategory
@@ -15,12 +16,12 @@ class ServiceCategory
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'serviceCategories')]
     #[ORM\JoinColumn(nullable: false)]
-
     #[ORM\OneToMany(mappedBy: 'service_category', targetEntity: Service::class, orphanRemoval: true)]
     private Collection $services;
 
