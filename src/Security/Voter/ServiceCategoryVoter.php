@@ -8,13 +8,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ServiceCategoryVoter extends Voter
 {
+    public const CREATE = 'CREATE';
     public const EDIT = 'EDIT';
     public const VIEW = 'VIEW';
     public const DELETE = 'DELETE';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE])
+        return in_array($attribute, [self::CREATE, self::EDIT, self::VIEW, self::DELETE])
             && $subject instanceof \App\Entity\ServiceCategory;
     }
 
@@ -31,6 +32,8 @@ class ServiceCategoryVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
+            case self::CREATE:
+                return true;
             case self::EDIT:
             case self::VIEW:
             case self::DELETE:

@@ -2,7 +2,7 @@
 
 {% block title %}Inscrivez-vous !{% endblock %}
 
-{% block mobileText %}Inscrivez vous {% endblock %}
+{% block mobileText %}Inscrivez-vous {% endblock %}
 {% block primaryText %}Inscrivez-vous..{% endblock %}
 {% block secondaryText %}Et prenez de l'avance sur vos concurrents 🚀{% endblock %}
 
@@ -15,8 +15,6 @@
         <div class="flex flex-col justify-center gap-5 self-stretch">
             <twig:TextField label="Siren" type="text" name="{{ field_name(form.siren) }}" value="{{ field_value(form.siren) }}" autocomplete="off"/>
             <twig:TextField label="Nom" type="text" name="{{ field_name(form.name) }}" value="{{ field_value(form.name) }}" autocomplete="organization"/>
-            
-            {{ form_row(form._token) }}
         </div>
 
         <div class="flex items-center gap-2.5 self-stretch">

@@ -30,8 +30,6 @@
           <option value="{{ category.id }}" {% if defaultCategoryId == category.id %}selected{% endif %}>{{ category.name }}</option>
         {% endfor %}
       </twig:Select>
-
-			{{ form_row(form._token) }}
 		</div>
 
 		<div class="flex items-center gap-2.5 self-stretch">

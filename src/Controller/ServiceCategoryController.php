@@ -53,6 +53,7 @@ class ServiceCategoryController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      $this->denyAccessUnlessGranted('CREATE', $serviceCategory);
       $serviceCategory->setAgency($this->getUser()->getAgency());
       $entityManager->persist($serviceCategory);
       $entityManager->flush();

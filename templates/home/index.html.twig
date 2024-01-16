@@ -17,7 +17,7 @@
       </div>
 
       {# Buttons #}
-      <div class="flex items-start gap-[30px]">
+      <div class="flex items-start gap-2.5">
         <twig:ButtonLink href="{{ path('app_login') }}" id="login-btn" 
         class="border border-webquote-500 text-webquote-500 bg-white 
         hover:bg-gray-50">
@@ -54,10 +54,10 @@
     {# Content #}
     <main class="flex flex-col md:flex-row p-2.5 items-start gap-5 md:gap-2.5 flex-1 self-stretch">
       {# Left #}
-      <div class="flex md:p-2.5 flex-col md:justify-center items-start gap-10 md:gap-20 md:flex-1 self-stretch">
+      <div class="flex md:py-2.5 md:px-5 flex-col md:justify-center items-start gap-10 md:gap-20 md:flex-1 self-stretch">
         {# Text #}
         <div class="flex flex-col justify-center items-start gap-[30px] md:gap-[60px] self-stretch">
-          <h1 class="text-2xl md:text-5xl font-semibold">Facturez vos <i class="font-light text-webquote-500">prestations web</i> à vitesse grand V</h1>
+          <h1 class="text-2xl md:text-5xl font-semibold">Facturez vos <i class="text-webquote-500">prestations web</i> à vitesse grand V</h1>
           <h2 class="md:text-2xl">
             Webquote aide les agences web à gérer facilement et rapidement 
             la facturation de leurs clients. Pourquoi pas la vôtre ?
@@ -73,7 +73,7 @@
 
       {# Right #}
       <div class="flex justify-center md:items-center md:flex-1 self-stretch relative">
-        <img src="{{ asset('build/images/demo.svg') }}" alt="Demo" class="z-10">
+        <img src="{{ asset('build/images/demo.svg') }}" alt="Demo" class="z-10 shadow-lg rounded-[10px]">
         <img src="{{ asset('build/images/planet.svg') }}" alt="" class="hidden md:inline absolute pb-[41px]">
       </div>
     </main>

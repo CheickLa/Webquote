@@ -23,9 +23,6 @@
 
 		<twig:TextField
 		label="Mot de passe" type="password" name="{{ field_name(form.password) }}" value="{{ field_value(form.password) }}" autocomplete="new-password"/>
-
-		{# CSRF Token #}
-		{{ form_row(form._token) }}
 	</div>
 
 	<div class="flex items-center gap-2.5 self-stretch">
@@ -39,5 +36,6 @@
 			<i class="ti ti-arrow-narrow-right"></i>
 		</twig:Button>
 	</div>
+  <div class="text-center"><a href="{{ path('app_login') }}" class="text-center text-webquote-500">Déjà inscrit ?</a></div>
   {{ form_end(form) }}
 {% endblock %}
