@@ -8,7 +8,10 @@
         id="{{ name }}"
         class="rounded-10 p-2.5 border border-gray-300"
         autocomplete="{{ autocomplete }}"
-        required
+        {{ required ? 'required' : ''}}
         autofocus
     />
+    {% if not required %}
+      <small class="text-gray-500">Ce champ est optionnel</small>
+    {% endif %}
 </div>

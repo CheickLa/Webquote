@@ -12,4 +12,5 @@ class TextField
     public string $name;
     public string $value = '';
     public string $autocomplete = 'on';
+    public bool $required = true;
 }
