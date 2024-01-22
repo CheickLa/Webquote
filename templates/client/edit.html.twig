@@ -1,0 +1,55 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block breadcrumbs %}Modifier un client{% endblock %}
+
+{% block content %}
+	<div class="flex flex-col md:justify-center items-center flex-1 self-stretch">
+		{{ form_start(form, {attr: {class: 'flex flex-col justify-center items-start gap-[15px]',}}) }}
+            <h1 class="text-2xl font-semibold">{{ title }}</h1>
+            
+            {# Potentielles erreurs #}
+            {{ form_errors(form.siren) }}
+            {{ form_errors(form.name) }}
+            {{ form_errors(form.email) }}
+            {{ form_errors(form.legal_status) }}
+            {{ form_errors(form.sector) }}
+            {{ form_errors(form.address) }}
+            {{ form_errors(form.phoneNumber) }}
+            
+            {# Champs #}
+            <twig:TextField name="{{ field_name(form.siren) }}" value="{{ field_value(form.siren)|default('') }}" label="Siren"/>
+            <twig:TextField name="{{ field_name(form.name) }}" value="{{ field_value(form.name)|default('') }}" label="Nom"/>
+            <twig:TextField name="{{ field_name(form.email) }}" value="{{ field_value(form.email)|default('') }}" label="Email"/>
+            <twig:TextField name="{{ field_name(form.legal_status) }}" value="{{ field_value(form.legal_status)|default('') }}" label="Statut légal"/>
+            <twig:TextField name="{{ field_name(form.sector) }}" value="{{ field_value(form.sector)|default('') }}" label="Secteur"/>
+            <twig:TextField name="{{ field_name(form.address) }}" value="{{ field_value(form.address)|default('') }}" label="Adresse"/>
+            <twig:TextField name="{{ field_name(form.phoneNumber) }}" value="{{ field_value(form.phoneNumber)|default('') }}" label="Téléphone"/>
+    
+           {{ form_row(form._token) }}
+
+        <div class="flex items-center gap-2.5 justify-center self-stretch">
+        	<twig:ButtonLink href="{{ path('app_client_index') }}" id="back-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 justify-center">
+                <i class="ti ti-arrow-narrow-left"></i>
+                Retour
+            </twig:ButtonLink>
+            <twig:Button id="submit-btn" class="bg-webquote-500 hover:bg-webquote-600 text-white justify-center">
+                <i class="ti {{ icon }}"></i>
+                {{ buttonText }}
+            </twig:Button>
+
+		{{ form_end(form) }}
+
+            <form method="post" action="{{ path('app_client_delete', {'id': client.id}) }}">
+                <twig:Button id="submit-btn" class="bg-gray-900 hover:bg-black text-white justify-center">
+                    <i class="ti ti-trash"></i>
+                    <span class="hidden md:inline">Supprimer</span>
+                </twig:Button>
+
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
+            </form>
+        </div>
+	</div>
+{% endblock %}
+

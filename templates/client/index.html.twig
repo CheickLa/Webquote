@@ -1,0 +1,58 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Clients{% endblock %}
+
+{% block breadcrumbs %}Clients{% endblock %}
+
+{% block content %}
+
+<div class="self-stretch flex flex-col gap-5 md:flex-row md:justify-between items-end">
+    <h1 class="text-xl">Mes clients</h1>
+    <div class="flex gap-2.5 items-start justify-between self-stretch md:justify-start md:self-auto">
+        <twig:ButtonLink href="{{ path('app_client_new') }}" id="add-btn" class="bg-webquote-500 hover:bg-webquote-600 text-white flex-1 md:flex-auto justify-center md:justify-start">
+            <i class="ti ti-playlist-add"></i>
+            Nouveau
+        </twig:ButtonLink>
+    </div>
+</div>
+
+<div class="relative overflow-x-auto bg-gray-100 shadow-md sm:rounded-lg mt-6 min-w-full">
+    <table class="w-full text-sm text-gray-500">
+        <thead class="text-xs text-white bg-gray-900 uppercase mt-6">
+            <tr>
+                <th scope="col" class="px-6 py-3 ">Siren</th>
+                <th scope="col" class="px-6 py-3 ">Nom</th>
+                <th scope="col" class="px-6 py-3 ">Email</th>
+                <th scope="col" class="px-6 py-3 ">Status</th>
+                <th scope="col" class="px-6 py-3 ">Secteur</th>
+                <th scope="col" class="px-6 py-3 ">Adresse</th>
+                <th scope="col" class="px-6 py-3 ">Téléphone</th>
+                <th scope="col" class="px-6 py-3 ">Modifier</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr class="{{ loop.index is even ? 'bg-gray-100' : 'bg-white' }} border">
+                <td class="px-6 py-4">{{ client.siren }}</td>
+                <td class="px-6 py-4">{{ client.name }}</td>
+                <td class="px-6 py-4">{{ client.email }}</td>
+                <td class="px-6 py-4">{{ client.legalStatus }}</td>
+                <td class="px-6 py-4">{{ client.sector }}</td>
+                <td class="px-6 py-4">{{ client.address }}</td>
+                <td class="px-4 py-4">{{ client.phoneNumber }}</td>
+                <td class="px-6 py-4">
+                    <twig:ButtonLink href="{{ path('app_client_edit', {'id': client.id}) }}" id="edit-btn" class=" hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
+                        <i class="ti ti-edit"></i>
+                        
+				    </twig:ButtonLink>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9" class="text-center text-xl">Vous n'avez aucun client pour l'instant</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div>
+{% endblock %}
