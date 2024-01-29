@@ -18,10 +18,6 @@ class ClientController extends AbstractController
     #[Route('/', name: 'app_client_index', methods: ['GET'])]
     public function index(Request $request, ClientRepository $clientRepository): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-
         $agencyUser = $this->getUser()->getAgency();
         $clients = $clientRepository->findBy(['agency' => $agencyUser]);
     

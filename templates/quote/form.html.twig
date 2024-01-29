@@ -1,0 +1,54 @@
+{# Formulaire d'ajout et de modification #}
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Devis
+{% endblock %}
+
+{% block breadcrumbs %}Devis
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col md:justify-center items-center flex-1 self-stretch">
+  {{ form_start(form, {
+  attr: {
+  class: 'flex flex-col justify-center items-start gap-[30px]',
+  }
+  }) }}
+  <h1 class="text-2xl font-semibold">{{ title }}</h1>
+
+  {{ form_errors(form.client) }}
+  {{ form_errors(form.service) }}
+  {{ form_errors(form.amount) }}
+  {{ form_errors(form.date) }}
+
+  <div class="flex flex-col gap-2.5 self-stretch"> 
+    <twig:Select name="{{ field_name(form.client) }}" label="Client">
+      {% for client in clients %}
+      <option value="{{ client.id }}" {% if currentClient|default(null) == client.id %}selected{% endif %}>{{ client.name }}</option>
+      {% endfor %}
+    </twig:Select> 
+
+    <twig:Select name="{{ field_name(form.service) }}" label="Prestation">
+      {% for service in services %}
+      <option value="{{ service.id }}" {% if currentService|default(null) == service.id %}selected{% endif %}>{{ service.name }}</option>
+      {% endfor %}
+    </twig:Select>
+
+    <twig:TextField name="{{ field_name(form.amount) }}" value="{{ field_value(form.amount)|default('') }}" label="Prix"/>
+
+    <twig:TextField name="{{ field_name(form.date) }}" value="{{ field_value(form.date).format('Y-m-d')|default('now'|date('Y-m-d')) }}" label="Date" type="date" /> 
+  </div>
+
+  <div class="flex items-center gap-2.5 self-stretch">
+    <twig:ButtonLink href="{{ path('app_quote_index') }}" id="back-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 justify-center">
+      <i class="ti ti-arrow-narrow-left"></i>
+      Retour
+    </twig:ButtonLink>
+    <twig:Button id="submit-btn" class="bg-webquote-500 hover:bg-webquote-600 text-white flex-1 justify-center">
+      <i class="ti {{ icon }}"></i>
+      {{ buttonText }}
+    </twig:Button>
+  </div>
+  {{ form_end(form) }}
+</div>
+{% endblock %}

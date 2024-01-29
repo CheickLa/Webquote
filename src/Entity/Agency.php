@@ -163,4 +163,17 @@ class Agency
 
         return $this;
     }
+
+    /**
+    * @return Collection<int, Service>
+    */
+    public function getServices(): Collection
+    {
+      $services = $this->getServiceCategories()->map(function ($serviceCategory) {
+        return $serviceCategory->getServices()->toArray();
+      });
+      $services = array_merge(...$services);
+
+      return new ArrayCollection($services);
+    }
 }
