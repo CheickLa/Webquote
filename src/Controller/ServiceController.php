@@ -63,7 +63,7 @@ class ServiceController extends AbstractController
             'form' => $form,
             'serviceCategories' => $this->getUser()->getAgency()->getServiceCategories(),
             'defaultCategoryId' => $service->getServiceCategory()->getId(),
-            'title' => 'Modifier une prestation',
+            'title' => 'Modifier ' . $service->getName(),
             'buttonText' => 'Modifier',
             'icon' => 'ti-edit'
         ]);

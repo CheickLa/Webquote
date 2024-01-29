@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/client')]
+#[Route('/dashboard/client')]
 class ClientController extends AbstractController
 {
     // Index
@@ -48,9 +48,9 @@ class ClientController extends AbstractController
         return $this->render('client/new.html.twig', [
             'client'     => $client,
             'form'       => $form,
-            'buttonText' => 'Soumettre',
-            'title'      => 'Inscrire un nouveau client',
-            'icon'       => 'ti-playlist-add'
+            'buttonText' => 'Ajouter',
+            'title'      => 'Ajouter un nouveau client',
+            'icon'       => 'ti-plus'
         ]);
     }
 
@@ -75,8 +75,8 @@ class ClientController extends AbstractController
             'client'     => $client,
             'form'       => $form,
             'buttonText' => 'Modifier',
-            'title'      => 'Modifier les informations du client',
-            'icon'       => 'ti-playlist-add'
+            'title'      => 'Modifier ' . $client->getName(),
+            'icon'       => 'ti-edit'
         ]);
     }
 
