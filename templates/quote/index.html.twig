@@ -1,36 +1,76 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Quote index{% endblock %}
-
-{% block body %}
-    <h1>Quote index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for quote in quotes %}
-            <tr>
-                <td>{{ quote.id }}</td>
-                <td>{{ quote.date ? quote.date|date('Y-m-d') : '' }}</td>
-                <td>{{ quote.amount }}</td>
-                <td>
-                    <a href="{{ path('app_quote_edit', {'id': quote.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_quote_new') }}">Create new</a>
+{% block title %}
+Devis	
 {% endblock %}
+
+{% block breadcrumbs %}
+Devis	
+{% endblock %}
+
+{% block content %}
+<div
+  class="self-stretch flex flex-col gap-5 justify-between">
+  {# Select #}
+  <form method="get" id="cli-select" action="{{ path('app_quote_index') }}" class="self-stretch md:self-auto">
+    <twig:Select name="id" label="Sélectionner un client" class="flex-1 md:flex-auto">
+      {% for cli in clients %}
+      <option value="{{ cli.id }}" {% if cli.id == client.id %} selected{% endif %}>{{ cli.name }}</option>
+      {% else %}
+      <option value="">Pas de client</option>
+      {% endfor %}
+    </twig:Select>
+  </form>
+
+  {# Devis #}
+  <div class="flex flex-col self-stretch pt-2.5 gap-2.5 overflow-scroll
+    max-h-[calc(100svh-2.5rem-202.5px)] md:max-h-[calc(100svh-303.5px)]">
+    {% for quote in quotes %}
+    <div
+      class="flex gap-10 rounded-10 shadow-sm px-2.5 py-1 items-center bg-white hover:bg-gray-300">
+      <div class="flex flex-col flex-1 md:flex-row md:items-center gap-2.5">
+        <h3 class="text-md">{{ quote.date|date('d/m/Y') }}</h3>
+        <p class="text-md">{{ quote.service }}</p>
+        <p class="text-md">{{ quote.amount }} €</p>
+      </div>
+
+      {# Actions #}
+      <div
+        class="flex gap-2.5">
+        {# Edit #}
+        <twig:ButtonLink href="{{ path('app_quote_edit', {'id': quote.id}) }}" id="edit-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
+          <i class="ti ti-edit"></i>
+        </twig:ButtonLink>
+
+        {# Delete #}
+        <form method="post" action="{{ path('app_quote_delete', {'id': quote.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer ce devis ?')">
+          <twig:Button id="delete-service-btn" class="bg-gray-900 hover:bg-black text-white">
+            <i class="ti ti-trash"></i>
+          </twig:Button>
+
+          <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ quote.id) }}">
+        </form>
+      </div>
+    </div>
+    {% else %}
+      {% if client is not null %}
+        Vous n'avez aucun devis pour ce client pour l'instant 
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% if client is not null %}
+  <twig:ButtonLink id="add-quote-btn" href="{{ path('app_quote_new', {'id': client.id}) }}" class="text-webquote-500 self-start">
+    <i class="ti ti-playlist-add"></i>
+    Ajouter un devis
+  </twig:ButtonLink>
+  {% endif %}
+
+  <script>
+  const select = document.querySelector('#cli-select');
+  select.addEventListener('change', () => {
+    select.submit();
+  });
+  </script>
+  {% endblock %}
+

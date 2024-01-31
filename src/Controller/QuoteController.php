@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Quote;
 use App\Form\QuoteType;
+use App\Repository\ClientRepository;
 use App\Repository\QuoteRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,11 +17,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuoteController extends AbstractController
 {
     #[Route('/', name: 'app_quote_index', methods: ['GET'])]
-    public function index(QuoteRepository $quoteRepository): Response
+    public function index(Request $request, ClientRepository $clientRepository, QuoteRepository $quoteRepository): Response
     {
-        $quotes = $quoteRepository->findByAgency($this->getUser()->getAgency());
+        $clients = $this->getUser()->getAgency()->getClients();
+        $client = $clients[0] ?? null;
+
+        if ($request->query->has('id')) {
+          $selectedClient = $request->query->get('id');
+          $client = $clientRepository->find($selectedClient);
+          $this->denyAccessUnlessGranted('VIEW', $client);
+        }
+
+        if ($client) {
+          $quotes = $quoteRepository->findBy(
+            ['client' => $client],
+            ['date' => Criteria::DESC]
+          ); 
+        } else {
+          $quotes = [];
+        }
         
         return $this->render('quote/index.html.twig', [
+            'clients' => $clients,
+            'client' => $client,
             'quotes' => $quotes,
         ]);
     }
@@ -36,6 +56,8 @@ class QuoteController extends AbstractController
             $entityManager->persist($quote);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Devis créé');
+
             return $this->redirectToRoute('app_quote_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -49,6 +71,7 @@ class QuoteController extends AbstractController
             'form' => $form,
             'services' => $services,
             'clients' => $clients,
+            'currentClient' => $request->query->get('id'),
             'title' => 'Créer un devis',
             'buttonText' => 'Créer',
             'icon' => 'ti-plus',
@@ -64,6 +87,8 @@ class QuoteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->denyAccessUnlessGranted('EDIT', $quote);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Devis modifié');
 
             return $this->redirectToRoute('app_quote_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -96,6 +121,8 @@ class QuoteController extends AbstractController
             $this->denyAccessUnlessGranted('DELETE', $quote);
             $entityManager->remove($quote);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Devis supprimé');
         }
 
         return $this->redirectToRoute('app_quote_index', [], Response::HTTP_SEE_OTHER);
