@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="w-screen min-h-screen flex flex-1 p-2.5 md:p-0">
+	<div class="w-screen h-screen flex flex-1 p-2.5 md:p-0">
 		<twig:Sidebar/>
 
 		<div
@@ -40,7 +40,7 @@
 			</div>
 
 			{# Content #}
-			<main class="flex md:p-[30px] flex-col items-start gap-5 flex-1 self-stretch">
+			<main class="flex md:p-[30px] flex-col items-start gap-5 flex-1 self-stretch overflow-hidden">
 				{% block content %}{% endblock %}
 			</main>
 		</div>
