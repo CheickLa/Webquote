@@ -14,8 +14,17 @@ use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use App\Service\EmailService;
+
 class RegisterController extends AbstractController
 {
+    private $emailService;
+
+    public function __construct(EmailService $emailService)
+    {
+        $this->emailService = $emailService;
+    }
+
     // Methode pour l'inscription
     #[Route('/register', name: 'app_register', methods: ['get', 'post'])]
     public function index(Request $request): Response
@@ -66,6 +75,9 @@ class RegisterController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // Envoie du mail
+            $this->emailService->sendEmail(5638161,$user->getEmail());
+
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
@@ -73,7 +85,7 @@ class RegisterController extends AbstractController
             );
         }
 
-      return $this->render('register/user.html.twig', [
+        return $this->render('register/user.html.twig', [
             'form' => $form->createView(),
         ]);
     }

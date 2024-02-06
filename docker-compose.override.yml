@@ -35,7 +35,7 @@ services:
 ###< doctrine/doctrine-bundle ###
 
 ###> symfony/mailer ###
-  mailer:
-    image: schickling/mailcatcher
-    ports: [1025, 1080]
+  # mailer:
+  #   image: schickling/mailcatcher
+  #   ports: [1025, 1080]
 ###< symfony/mailer ###

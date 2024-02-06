@@ -10,10 +10,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\EmailService;
 
 #[Route('/dashboard/client')]
 class ClientController extends AbstractController
 {
+    private $emailService;
+
+    public function __construct(EmailService $emailService)
+    {
+        $this->emailService = $emailService;
+    }
+
+
     // Index
     #[Route('/', name: 'app_client_index', methods: ['GET'])]
     public function index(Request $request, ClientRepository $clientRepository): Response
@@ -39,6 +48,10 @@ class ClientController extends AbstractController
             $client->setAgency($this->getUser()->getAgency());
             $entityManager->persist($client);
             $entityManager->flush();
+
+            // Test ! Appel du service\EmailService pour test
+            // A retirer après !!
+            $this->emailService->sendEmail(5638161,$client->getEmail());
 
             $this->addFlash('success', 'Client ajouté avec succès');
 
