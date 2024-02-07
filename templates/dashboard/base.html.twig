@@ -9,38 +9,30 @@
 		<twig:Sidebar/>
 
 		<div
-			class="flex flex-1 md:p-2.5 flex-col self-stretch gap-[30px] md:gap-0">
+			class="flex flex-1 md:p-5 flex-col self-stretch gap-[30px] md:gap-0 md:bg-webquote-950">
 			{# Header #}
 			<div
-				class="flex md:px-[30px] md:pb-2.5 md:pt-5 justify-between items-center self-stretch">
-				{# Breadcrumbs #}
-				<div class="hidden md:block">
-					<p class="text-base text-gray-500">Dashboard /
-						<span class="text-base text-black">
-							{% block breadcrumbs %}{% endblock %}
-						</span>
-					</p>
-				</div>
-
+				class="flex md:px-5 md:py-4 justify-between md:justify-end items-center self-stretch bg-white md:rounded-t-10">
         {# Mobile only #}
-        <i class="md:hidden ti ti-menu-2 cursor-pointer text-webquote-500" id="menu-open-btn"></i>
-        <p class="md:hidden text-xl text-webquote-500 font-semibold">webquote</p>
+        <i class="md:hidden ti ti-menu-2 cursor-pointer text-black" id="menu-open-btn"></i>
+        <p class="md:hidden text-xl text-webquote-500 font-semibold font-webquote">Webquote</p>
 
 
 				<div
 					class="flex items-center gap-6">
 					{# Welcome Text #}
-					<p class="hidden md:block text-base font-medium">Bienvenue,
-						{{ app.user.email }}
-					</p>
+					<p class="hidden md:block text-base font-medium">
+            <!-- TODO récupérer nom utilisateur  -->
+            Ryan MALONZO
+          </p>
 					<a href="{{ path('app_logout') }}">
-						<i class="ti ti-logout text-webquote-500"></i>
+						<i class="ti ti-logout text-black"></i>
 					</a>
 				</div>
 			</div>
 
 			{# Content #}
-			<main class="flex md:p-[30px] flex-col items-start gap-5 flex-1 self-stretch overflow-hidden">
+			<main class="flex md:p-[30px] flex-col items-start gap-5 flex-1 self-stretch overflow-hidden bg-white md:rounded-b-10 md:shadow-inner">
 				{% block content %}{% endblock %}
 			</main>
 		</div>

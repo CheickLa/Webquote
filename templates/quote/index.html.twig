@@ -4,15 +4,13 @@
 Devis	
 {% endblock %}
 
-{% block breadcrumbs %}
-Devis	
-{% endblock %}
-
 {% block content %}
+<h1 class="font-title font-bold text-2xl">Devis</h1>
+
 <div
   class="self-stretch flex flex-col gap-5 justify-between">
   {# Select #}
-  <form method="get" id="cli-select" action="{{ path('app_quote_index') }}" class="self-stretch md:self-auto">
+  <form method="get" id="cli-select" action="{{ path('app_quote_index') }}" class="self-stretch md:self-start">
     <twig:Select name="id" label="Sélectionner un client" class="flex-1 md:flex-auto">
       {% for cli in clients %}
       <option value="{{ cli.id }}" {% if cli.id == client.id %} selected{% endif %}>{{ cli.name }}</option>
@@ -27,7 +25,7 @@ Devis
     max-h-[calc(100svh-2.5rem-202.5px)] md:max-h-[calc(100svh-303.5px)]">
     {% for quote in quotes %}
     <div
-      class="flex gap-10 rounded-10 shadow-sm px-2.5 py-1 items-center bg-white hover:bg-gray-300">
+      class="flex gap-10 rounded-6 shadow-sm px-2.5 py-1 items-center bg-white hover:bg-gray-300">
       <div class="flex flex-col flex-1 md:flex-row md:items-center gap-2.5">
         <h3 class="text-md">{{ quote.date|date('d/m/Y') }}</h3>
         <p class="text-md">{{ quote.service }}</p>

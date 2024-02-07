@@ -22,8 +22,13 @@ module.exports = {
         },
       },
       borderRadius: {
+        '6': '0.375rem', // 6px
         '10': '0.625rem', // 10px
-      }
+      },
+      fontFamily: {
+        'webquote': ['Lobster', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
     },
   },
   plugins: [],

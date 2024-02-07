@@ -2,7 +2,7 @@
 {% set compare = prefix|default(route|default(null)) %}
 {% set active = compare is defined ? (currentRoute starts with compare) : false %}
 
-<a href="{{ route is defined ? path(route) : '#' }}" class="self-stretch flex py-[15px] px-5 items-center gap-5 rounded-10 {{ active ? '' : 'hover:bg-webquote-900' }}">
-	<i class="ti ti-{{ icon }} {{ active ? 'text-white' : 'text-gray-300' }}"></i>
-	<span class="text-xl {{ active ? 'text-white font-semibold' : 'text-gray-300' }}">{{ value }}</span>
+<a href="{{ route is defined ? path(route) : '#' }}" class="self-stretch flex py-2.5 px-2.5 items-center gap-2.5 rounded-6 {{ active ? 'bg-webquote-900' : 'hover:bg-webquote-800' }}">
+	<i class="ti ti-{{ icon }} {{ active ? 'text-webquote-500' : 'text-gray-400' }}"></i>
+	<span class="{{ active ? 'text-white font-semibold' : 'text-gray-400' }}">{{ value }}</span>
 </a>

@@ -2,17 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@import "@fontsource/poppins/300.css";
-@import "@fontsource/poppins";
-@import "@fontsource/poppins/500.css";
-@import "@fontsource/poppins/600.css";
-@import "@fontsource/poppins/700.css";
+@import "@fontsource/lobster";
+@import "@fontsource/plus-jakarta-sans";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/be-vietnam-pro";
 @import "@tabler/icons-webfont/tabler-icons.css";
 
 @layer base {
-  body {
-    font-family: "Poppins";
+  html {
+    font-family: "Be Vietnam Pro", sans-serif;
   }
 
   .ti {

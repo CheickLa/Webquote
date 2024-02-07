@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Client;
 use App\Entity\Quote;
-use App\Entity\Service;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

@@ -4,14 +4,13 @@
 {% block title %}Prestations
 {% endblock %}
 
-{% block breadcrumbs %}Prestations
-{% endblock %}
-
 {% block content %}
-	<div class="flex flex-col md:justify-center items-center flex-1 self-stretch">
+  <h1 class="font-title font-bold text-2xl">Prestations</h1>
+  
+	<div class="flex flex-col items-center flex-1 self-stretch">
 		{{ form_start(form, {
     attr: {
-        class: 'flex flex-col justify-center items-start gap-[30px]',
+        class: 'flex flex-col justify-center items-start gap-[30px] md:w-[450px]',
     }
     }) }}
 		<h1 class="text-2xl font-semibold">{{ title }}</h1>
