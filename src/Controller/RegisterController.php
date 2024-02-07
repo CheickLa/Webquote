@@ -20,6 +20,8 @@ class RegisterController extends AbstractController
 {
     private $emailService;
 
+    private const EMAIL_TEMPLATE_ID = 5638161;
+
     public function __construct(EmailService $emailService)
     {
         $this->emailService = $emailService;
@@ -76,7 +78,7 @@ class RegisterController extends AbstractController
             $entityManager->flush();
 
             // Envoie du mail
-            $this->emailService->sendEmail(5638161,$user->getEmail());
+            $this->emailService->sendEmail(self::EMAIL_TEMPLATE_ID,$user->getEmail());
 
             return $userAuthenticator->authenticateUser(
                 $user,
