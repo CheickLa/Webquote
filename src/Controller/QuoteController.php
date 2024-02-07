@@ -58,7 +58,9 @@ class QuoteController extends AbstractController
 
             $this->addFlash('success', 'Devis créé');
 
-            return $this->redirectToRoute('app_quote_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('app_quote_index', [
+        'id' => $quote->getClient()->getId(),
+      ], Response::HTTP_SEE_OTHER);
         }
 
         // TODO Implémenter un select intermédiaire pour choisir 
@@ -90,7 +92,9 @@ class QuoteController extends AbstractController
 
             $this->addFlash('success', 'Devis modifié');
 
-            return $this->redirectToRoute('app_quote_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('app_quote_index', [
+        'id' => $quote->getClient()->getId(),
+      ], Response::HTTP_SEE_OTHER);
         }
 
         $services = $this->getUser()->getAgency()->getServiceCategories()->map(function ($serviceCategory) {

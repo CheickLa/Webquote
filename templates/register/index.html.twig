@@ -18,10 +18,7 @@
         </div>
 
         <div class="flex items-center gap-2.5 self-stretch">
-            <twig:ButtonLink href="{{ path('app_home') }}" id="back-btn" class="flex-1 justify-center bg-gray-100 hover:bg-gray-200">
-                <i class="ti ti-arrow-narrow-left"></i>
-                Retour
-            </twig:ButtonLink>
+            <twig:BackButton href="{{ path('app_home') }}" />
             <twig:Button id="register-btn" class="text-white bg-webquote-500 hover:bg-webquote-600 flex-1 justify-center">
                 Continuer
                 <i class="ti ti-arrow-narrow-right"></i>

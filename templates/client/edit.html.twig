@@ -6,7 +6,7 @@
 <h1 class="font-title font-bold text-2xl">Clients</h1>
 
 <div class="flex flex-col md:justify-center items-center flex-1 self-stretch overflow-hidden">
-  {{ form_start(form, {attr: {class: 'flex flex-col justify-center items-start gap-[15px] overflow-hidden md:w-[450px]'}}) }}
+  {{ form_start(form, {attr: {class: 'flex flex-col justify-center items-start gap-[15px] overflow-hidden md:w-[450px] self-stretch md:self-auto'}}) }}
   <h1 class="text-2xl font-semibold flex-shrink-0">{{ title }}</h1>
 
   {# Potentielles erreurs #}
@@ -32,10 +32,7 @@
   {{ form_row(form._token) }}
 
   <div class="flex items-center gap-2.5 justify-center self-stretch flex-shrink-0">
-    <twig:ButtonLink href="{{ path('app_client_index') }}" id="back-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 justify-center">
-      <i class="ti ti-arrow-narrow-left"></i>
-      Retour
-    </twig:ButtonLink>
+    <twig:BackButton href="{{ path('app_client_index') }}" />
     <twig:Button id="submit-btn" class="bg-webquote-500 hover:bg-webquote-600 text-white justify-center flex-1">
       <i class="ti {{ icon }}"></i>
       {{ buttonText }}

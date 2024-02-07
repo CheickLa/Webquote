@@ -29,6 +29,9 @@ module.exports = {
         'webquote': ['Lobster', 'sans-serif'],
         'title': ['"Plus Jakarta Sans"', 'sans-serif'],
       },
+      maxWidth: {
+        '4/5': '80%',
+      },
     },
   },
   plugins: [],

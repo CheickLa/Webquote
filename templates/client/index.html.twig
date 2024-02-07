@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="self-stretch flex flex-col gap-5">
-  <div class="flex gap-2.5 items-start justify-between items-center self-stretch">
+  <div class="flex gap-2.5 justify-between items-center self-stretch">
     <h1 class="font-title font-bold text-2xl">Clients</h1>
     <twig:ButtonLink href="{{ path('app_client_new') }}" id="add-btn" class="bg-webquote-500 hover:bg-webquote-600 text-white">
       <i class="ti ti-plus"></i>
@@ -17,7 +17,7 @@
     max-h-[calc(100svh-2.5rem-190px)] md:max-h-[calc(100svh-202px)]">
     {% for client in clients %}
     <div
-      class="flex gap-10 rounded-6 shadow-sm px-2.5 py-1 items-center bg-white hover:bg-gray-300">
+      class="flex gap-10 rounded-6 border border-gray-300 p-2.5 items-center bg-white hover:bg-gray-300">
       <div class="flex flex-col flex-1 md:flex-row md:items-center">
         <h3 class="text-md">{{ client.name }}</h3>
       </div>
