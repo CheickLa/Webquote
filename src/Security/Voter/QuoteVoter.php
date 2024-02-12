@@ -32,7 +32,10 @@ class QuoteVoter extends Voter
             case self::CREATE:
             case self::EDIT:
             case self::DELETE:
-              return $user->getAgency() === $subject->getClient()->getAgency() && $user->getAgency() === $subject->getService()->getServiceCategory()->getAgency();
+              $matchClientAgency = $user->getAgency() === $subject->getClient()->getAgency();
+              $services = $subject->getServices();
+              $matchEachService = array_map(fn($service) => $user->getAgency() === $service->getServiceCategory()->getAgency(), $services->toArray());
+              return $matchClientAgency && in_array(false, $matchEachService) === false;
         }
 
         return false;

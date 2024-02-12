@@ -15,8 +15,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        // TODO also add random users
-        // $faker = \Faker\Factory::create('fr_FR');
         $pwd = 'test';
 
         $user = (new User())

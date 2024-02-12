@@ -18,7 +18,7 @@ class QuoteType extends AbstractType
             ])
             ->add('amount')
             ->add('client')
-            ->add('service')
+            ->add('services')
         ;
     }
 

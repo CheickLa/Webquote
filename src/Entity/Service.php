@@ -29,7 +29,7 @@ class Service
     #[ORM\JoinColumn(nullable: false)]
     private ?ServiceCategory $service_category = null;
 
-    #[ORM\OneToMany(mappedBy: 'service', targetEntity: Quote::class, orphanRemoval: true)]
+    #[ORM\ManyToMany(targetEntity: Quote::class, mappedBy: 'services')]
     private Collection $quotes;
 
     public function __construct()
@@ -77,6 +77,11 @@ class Service
 
         return $this;
     }
+    
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 
     /**
      * @return Collection<int, Quote>
@@ -90,7 +95,7 @@ class Service
     {
         if (!$this->quotes->contains($quote)) {
             $this->quotes->add($quote);
-            $quote->setService($this);
+            $quote->addService($this);
         }
 
         return $this;
@@ -99,17 +104,9 @@ class Service
     public function removeQuote(Quote $quote): static
     {
         if ($this->quotes->removeElement($quote)) {
-            // set the owning side to null (unless already changed)
-            if ($quote->getService() === $this) {
-                $quote->setService(null);
-            }
+            $quote->removeService($this);
         }
 
         return $this;
-    }
-    
-    public function __toString(): string
-    {
-        return $this->name;
     }
 }

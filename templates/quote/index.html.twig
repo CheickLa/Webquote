@@ -26,9 +26,15 @@ Devis
     {% for quote in quotes %}
     <div
       class="flex md:gap-10 rounded-6 border border-gray-300 p-2.5 items-center bg-white hover:bg-gray-300">
-      <div class="w-0 flex flex-col flex-1 md:flex-row md:items-center gap-2.5">
-        <h3 class="text-md">{{ quote.date|date('d/m/Y') }}</h3>
-        <p class="text-md overflow-hidden text-ellipsis whitespace-nowrap max-w-4/5 md:grow">{{ quote.service }}</p>
+      <div class="w-0 flex flex-col flex-1 md:flex-row md:items-center gap-5">
+        <h3 class="text-md basis-1/3">{{ quote.date|date('d/m/Y') }}</h3>
+        <div class="md:grow">
+          <ul class="list-disc list-inside">
+            {% for service in quote.services %}
+              <li class="text-md overflow-hidden text-ellipsis whitespace-nowrap max-w-4/5">{{ service }}</li>
+            {% endfor %}
+          </ul>
+        </div>
         <div class="flex md:flex-1 md:justify-end">
           <p class="text-md">{{ quote.amount }} €</p>
         </div>

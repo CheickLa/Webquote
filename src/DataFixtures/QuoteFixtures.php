@@ -25,7 +25,12 @@ class QuoteFixtures extends Fixture implements DependentFixtureInterface
       $quote->setDate($faker->dateTimeBetween('-6 months'));
       $quote->setAmount($faker->randomFloat(2, 100, 1000));
       $quote->setClient($client);
-      $quote->setService($faker->randomElement($services));
+
+      $randomServices = $faker->randomElements($services, $faker->numberBetween(1, 3));
+      foreach ($randomServices as $service) {
+        $quote->addService($service);
+      }
+
       $manager->persist($quote);
     }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\QuoteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,13 +32,22 @@ class Quote
     #[ORM\Column]
     private ?float $amount = null;
 
+    #[Assert\NotBlank]
     #[ORM\ManyToOne(inversedBy: 'quotes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
 
-    #[ORM\ManyToOne(inversedBy: 'quotes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Service $service = null;
+    #[Assert\Count(
+      min: 1,
+      minMessage: 'Merci de sélectionner au moins une prestation'
+    )]
+    #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'quotes')]
+    private Collection $services;
+
+    public function __construct()
+    {
+        $this->services = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -79,14 +90,26 @@ class Quote
         return $this;
     }
 
-    public function getService(): ?Service
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServices(): Collection
     {
-        return $this->service;
+        return $this->services;
     }
 
-    public function setService(?Service $service): static
+    public function addService(Service $service): static
     {
-        $this->service = $service;
+        if (!$this->services->contains($service)) {
+            $this->services->add($service);
+        }
+
+        return $this;
+    }
+
+    public function removeService(Service $service): static
+    {
+        $this->services->removeElement($service);
 
         return $this;
     }

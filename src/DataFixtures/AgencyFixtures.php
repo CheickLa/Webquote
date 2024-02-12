@@ -14,7 +14,7 @@ class AgencyFixtures extends Fixture
 
     $agency = (new Agency())
       ->setSiren('830256558')
-      ->setName('Avanseo');
+      ->setName('AVANSEO');
     $manager->persist($agency);
     $this->addReference('agency', $agency);
 

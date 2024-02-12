@@ -10,13 +10,14 @@
 <div class="flex flex-col items-center flex-1 self-stretch">
   {{ form_start(form, {
   attr: {
-  class: 'flex flex-col justify-center items-start gap-[30px] md:w-[450px] self-stretch md:self-auto',
-  }
+    class: 'flex flex-col justify-center items-start gap-[30px] md:w-[450px] self-stretch md:self-auto',
+    id: 'quote-form',
+    }
   }) }}
   <h1 class="text-2xl font-semibold">{{ title }}</h1>
 
   {{ form_errors(form.client) }}
-  {{ form_errors(form.service) }}
+  {{ form_errors(form.services) }}
   {{ form_errors(form.amount) }}
   {{ form_errors(form.date) }}
 
@@ -27,11 +28,37 @@
       {% endfor %}
     </twig:Select> 
 
-    <twig:Select name="{{ field_name(form.service) }}" label="Prestation">
-      {% for service in services %}
-      <option value="{{ service.id }}" {% if currentService|default(null) == service.id %}selected{% endif %}>{{ service.name }}</option>
-      {% endfor %}
-    </twig:Select>
+    <div class="flex flex-1 justify-between gap-2.5">
+      <twig:Select name="service_categories" label="Catégorie de prestations" id="categories">
+        {% for category in serviceCategories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+      </twig:Select>
+
+      <twig:Select name="services" label="Prestations" id="services">
+        <option selected disabled>Sélectionner une prestation</option>
+        {% for service in services %}
+        <option value="{{ service.id }}">{{ service.name }}</option>
+        {% endfor %}
+      </twig:Select>
+    </div>
+
+    <!--Affichage des prestations sélectionnées-->
+    <div class="flex flex-col gap-2.5">
+      <div class="flex flex-1 gap-2.5 justify-between">
+        <label for="{{ field_name(form.services) }}">Prestations sélectionnées</label>
+        <button type="button" id="remove-selected-services" class="underline">
+          Effacer
+        </button>
+      </div>
+      <select name="{{ field_name(form.services) }}" id="selected-services" class="p-2.5 rounded-6 bg-white border border-gray-300 whitespace-nowrap text-ellipsis w-full max-h-32 overflow-scroll" multiple>
+        {% if currentServices|default(null) %}
+          {% for service in currentServices %}
+            <option value="{{ service.id }}">{{ service.name }}</option>
+          {% endfor %}
+        {% endif %}
+      </select>
+    </div>
 
     <twig:TextField name="{{ field_name(form.amount) }}" value="{{ field_value(form.amount)|default('') }}" label="Prix" type="number" />
 
@@ -47,4 +74,82 @@
   </div>
   {{ form_end(form) }}
 </div>
+
+<script>
+  const fetchServices = async (categoryId) => {
+    const response = await fetch(`{{ path('app_service_get_by_category') }}?category_id=${categoryId}`);
+    const data = await response.json();
+    return data.services;
+  };
+  
+  const categories = document.querySelector('#categories');
+  const services = document.querySelector('#services');
+
+  categories.addEventListener('change', async () => {
+    const data = await fetchServices(categories.value);
+
+    services.innerHTML = '';
+    
+    // Append the default option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Sélectionner une prestation';
+    defaultOption.selected = true;
+    defaultOption.disabled = true;
+    services.appendChild(defaultOption);
+
+    data.forEach((service) => {
+      const option = document.createElement('option');
+      option.value = service.id;
+      option.textContent = service.name;
+      services.appendChild(option);
+    }); 
+  });
+
+  const selectedServices = document.querySelector('#selected-services');
+
+  // Sélectionner une prestation dans le select des prestations
+  // l'ajoute dans la liste des prestations sélectionnées
+  services.addEventListener('change', () => {
+    const option = document.createElement('option');
+    option.value = services.options[services.selectedIndex].value;
+    option.textContent = services.options[services.selectedIndex].text;
+
+    if (!Array.from(selectedServices.options).some((opt) => opt.value === option.value)) {
+      selectedServices.appendChild(option);
+    }
+  });
+
+  // Bouton pour supprimer toutes les prestations sélectionnées
+  const removeSelectedServices = document.querySelector('#remove-selected-services');
+  removeSelectedServices.addEventListener('click', () => {
+    selectedServices.innerHTML = '';
+    services.selectedIndex = 0;
+  });
+
+  // Supprime une prestation sélectionnée lorsqu'on clique dessus
+  selectedServices.addEventListener('change', () => {
+    const selectedOptions = [...selectedServices.options].filter((opt) => opt.selected);
+    selectedOptions.forEach((opt) => {
+      opt.remove();
+      
+      // Si la prestation supprimée est sélectionnée dans le select des prestations, on la déselectionne pour permettre à l'utilisateur
+      // de la sélectionner à nouveau s'il le souhaite
+      if (services.options[services.selectedIndex].value === opt.value) {
+        services.selectedIndex = 0;
+      }
+    });
+  });
+
+  // Avant soumission du formulaire au back, on sélectionne toutes les prestations pour les envoyer
+  const form = document.querySelector('#quote-form');
+  form.addEventListener('submit', () => {
+    const selectedOptions = [...selectedServices.options];
+    selectedOptions.forEach((opt) => {
+      opt.selected = true;
+    });
+    return true;
+  });
+</script>
+
 {% endblock %}
