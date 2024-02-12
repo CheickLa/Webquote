@@ -21,7 +21,7 @@ class Service
     private ?string $name = null;
 
     #[Assert\NotBlank]
-    #[Assert\Positive]
+    #[Assert\Positive(message: 'Le prix de la prestation doit être positif')]
     #[ORM\Column]
     private ?float $price = null;
 

@@ -33,9 +33,9 @@
       {% endfor %}
     </twig:Select>
 
-    <twig:TextField name="{{ field_name(form.amount) }}" value="{{ field_value(form.amount)|default('') }}" label="Prix"/>
+    <twig:TextField name="{{ field_name(form.amount) }}" value="{{ field_value(form.amount)|default('') }}" label="Prix" type="number" />
 
-    <twig:TextField name="{{ field_name(form.date) }}" value="{{ field_value(form.date).format('Y-m-d')|default('now'|date('Y-m-d')) }}" label="Date" type="date" /> 
+    <twig:TextField name="{{ field_name(form.date) }}" value="{{ field_value(form.date).format('Y-m-d')|default('now'|date('Y-m-d')) }}" label="Date" type="date" min="{{ 'now'|date('Y-m-d') }}" /> 
   </div>
 
   <div class="flex items-center gap-2.5 self-stretch">

@@ -25,7 +25,7 @@ class ClientController extends AbstractController
 
     // Index
     #[Route('/', name: 'app_client_index', methods: ['GET'])]
-    public function index(Request $request, ClientRepository $clientRepository): Response
+    public function index(ClientRepository $clientRepository): Response
     {
         $agencyUser = $this->getUser()->getAgency();
         $clients = $clientRepository->findBy(['agency' => $agencyUser]);
@@ -49,10 +49,6 @@ class ClientController extends AbstractController
             $entityManager->persist($client);
             $entityManager->flush();
 
-            // Test ! Appel du service\EmailService pour test
-            // A retirer après !!
-            $this->emailService->sendEmail(5638161,$client->getEmail());
-
             $this->addFlash('success', 'Client ajouté avec succès');
 
             return $this->redirectToRoute('app_client_index', ['id' => $client->getId()], Response::HTTP_SEE_OTHER);
@@ -63,7 +59,7 @@ class ClientController extends AbstractController
             'form'       => $form,
             'buttonText' => 'Ajouter',
             'title'      => 'Ajouter un nouveau client',
-            'icon'       => 'ti-plus'
+            'icon'       => 'ti-playlist-add'
         ]);
     }
 

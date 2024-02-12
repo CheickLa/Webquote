@@ -11,10 +11,12 @@ use App\Form\AgencyType;
 use App\Entity\Agency;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\AgencyRepository;
 use App\Security\AppAuthenticator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use App\Service\EmailService;
+use Symfony\Component\Form\FormError;
 
 class RegisterController extends AbstractController
 {
@@ -29,7 +31,7 @@ class RegisterController extends AbstractController
 
     // Methode pour l'inscription
     #[Route('/register', name: 'app_register', methods: ['get', 'post'])]
-    public function index(Request $request): Response
+    public function index(Request $request, AgencyRepository $agencyRepository): Response
     {
         $agency = new Agency();
 
@@ -37,10 +39,22 @@ class RegisterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            // On vérifie si le SIREN existe déjà en base, si oui on affiche une erreur
+            $siren = $form->get('siren');
+            $sirenData = $siren->getData();
+            $agencyExists = $agencyRepository->findOneBy(['siren' => $sirenData]);
+            if ($agencyExists) {
+                $siren->addError(new FormError('Ce SIREN est déjà utilisé'));
+                return $this->render('register/index.html.twig', [
+                    'form' => $form->createView()
+                ]);
+            }
+
             // On stocke l'agence en session pour l'enregistrer avec l'utilisateur
             $request->getSession()->set('agency', serialize($agency));
             return $this->redirectToRoute('app_register_user');
-        }
+          }
+
         return $this->render('register/index.html.twig', [
             'form' => $form->createView()
         ]);

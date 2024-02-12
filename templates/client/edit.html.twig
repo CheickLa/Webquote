@@ -20,12 +20,12 @@
 
   {# Champs #}
   <div class="flex flex-col self-stretch items-start gap-[15px] overflow-auto">
-    <twig:TextField name="{{ field_name(form.siren) }}" value="{{ field_value(form.siren)|default('') }}" label="Siren"/>
-    <twig:TextField name="{{ field_name(form.name) }}" value="{{ field_value(form.name)|default('') }}" label="Nom"/>
-    <twig:TextField name="{{ field_name(form.email) }}" value="{{ field_value(form.email)|default('') }}" label="Email"/>
+    <twig:TextField name="{{ field_name(form.siren) }}" value="{{ field_value(form.siren)|default('') }}" label="N° SIREN (9 chiffres)"/>
+    <twig:TextField name="{{ field_name(form.name) }}" value="{{ field_value(form.name)|default('') }}" label="Nom de l'entreprise"/>
+    <twig:TextField name="{{ field_name(form.email) }}" value="{{ field_value(form.email)|default('') }}" label="Adresse mail"/>
     <twig:TextField name="{{ field_name(form.legal_status) }}" value="{{ field_value(form.legal_status)|default('') }}" label="Statut légal" required="{{ false }}"/>
     <twig:TextField name="{{ field_name(form.sector) }}" value="{{ field_value(form.sector)|default('') }}" label="Secteur" required="{{ false }}"/>
-    <twig:TextField name="{{ field_name(form.address) }}" value="{{ field_value(form.address)|default('') }}" label="Adresse" required="{{ false }}"/>
+    <twig:TextField name="{{ field_name(form.address) }}" value="{{ field_value(form.address)|default('') }}" label="Adresse postale" required="{{ false }}"/>
     <twig:TextField name="{{ field_name(form.phoneNumber) }}" value="{{ field_value(form.phoneNumber)|default('') }}" label="Téléphone" required="{{ false }}"/>
   </div>
 

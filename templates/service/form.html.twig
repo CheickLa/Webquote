@@ -20,7 +20,7 @@
 		<div class="flex flex-col gap-2.5 self-stretch">
 			<twig:TextField name="{{ field_name(form.name) }}" value="{{ field_value(form.name)|default('') }}" label="Nom"/>
 
-			<twig:TextField name="{{ field_name(form.price) }}" value="{{ field_value(form.price)|default('') }}" label="Prix"/>
+			<twig:TextField name="{{ field_name(form.price) }}" value="{{ field_value(form.price)|default('') }}" label="Prix" type="number" />
 
       <twig:Select name="{{ field_name(form.service_category) }}" label="Catégorie">
         {% for category in serviceCategories %}

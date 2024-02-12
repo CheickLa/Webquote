@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\QuoteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: QuoteRepository::class)]
 class Quote
@@ -14,9 +15,18 @@ class Quote
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual([
+      'value' => 'today CET',
+      'message' => 'La date du devis doit être supérieure ou égale à la date du jour',
+    ])]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Positive([
+      'message' => 'Le montant du devis doit être positif',
+    ])]
     #[ORM\Column]
     private ?float $amount = null;
 

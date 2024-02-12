@@ -8,7 +8,10 @@
         id="{{ name }}"
         class="rounded-6 p-2.5 border border-gray-300"
         autocomplete="{{ autocomplete }}"
-        {{ required ? 'required' : ''}}
+        {{ required ? 'required' : '' }}
+        {% if min|default(null) %}
+          min="{{ min }}"
+        {% endif %}
         autofocus
     />
     {% if not required %}

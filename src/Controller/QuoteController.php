@@ -74,9 +74,9 @@ class QuoteController extends AbstractController
             'services' => $services,
             'clients' => $clients,
             'currentClient' => $request->query->get('id'),
-            'title' => 'Créer un devis',
-            'buttonText' => 'Créer',
-            'icon' => 'ti-plus',
+            'title' => 'Ajouter un devis',
+            'buttonText' => 'Ajouter',
+            'icon' => 'ti-playlist-add',
         ]);
     }
 
