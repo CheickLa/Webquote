@@ -38,6 +38,9 @@ class PdfService
         $this->domPdf->setPaper('A4','landscape');
         $this->domPdf->render();
         $output = $this->domPdf->output();
+        if (!is_dir('pdf')) {
+          mkdir('pdf');
+        }
         file_put_contents('pdf/'.$fileName.'.pdf',$output);
     }
 
