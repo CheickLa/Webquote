@@ -1,0 +1,33 @@
+{% block title %}Devis{% endblock %}
+
+{% block content %}
+<div class="container mx-auto flex justify-center items-center h-screen">
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h1 class="font-bold text-2xl text-center mb-4">Devis</h1>
+        <table class="w-full mb-4">
+            <tbody>
+                <tr>
+                    <td class="font-bold">ID du devis :</td>
+                    <td>{{ devis }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Client :</td>
+                    <td>{{ client }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Montant :</td>
+                    <td>{{ amount }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Date :</td>
+                    <td>{{ date|date('Y-m-d') }}</td>
+                </tr>
+                 <tr>
+                    <td class="font-bold">Mail :</td>
+                    <td>{{ mail }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
