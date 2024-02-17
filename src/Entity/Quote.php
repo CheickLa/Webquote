@@ -44,6 +44,9 @@ class Quote
     #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'quotes')]
     private Collection $services;
 
+    #[ORM\OneToOne(mappedBy: 'quote', cascade: ['persist', 'remove'])]
+    private ?Invoice $invoice = null;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
@@ -110,6 +113,23 @@ class Quote
     public function removeService(Service $service): static
     {
         $this->services->removeElement($service);
+
+        return $this;
+    }
+
+    public function getInvoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
+    public function setInvoice(Invoice $invoice): static
+    {
+        // set the owning side of the relation if necessary
+        if ($invoice->getQuote() !== $this) {
+            $invoice->setQuote($this);
+        }
+
+        $this->invoice = $invoice;
 
         return $this;
     }
