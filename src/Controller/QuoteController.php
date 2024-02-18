@@ -91,12 +91,12 @@ class QuoteController extends AbstractController
             $fileName = 'Devis_'. $quote->getId();
             $pdf->generatePdf($html,$fileName);
 
-            // Génère du lien de paiement d'un devis
+            // Génère le lien de paiement d'un devis
             $paymentLink = $this->generateUrl('app_payment', [
               'quote_id' => $quote->getId(),
             ], UrlGeneratorInterface::ABSOLUTE_URL);
             
-            // Envoie du mail
+            // Envoi du mail
             $pdfFilePath = 'pdf/'.$fileName.'.pdf';
             $this->emailService->sendEmail(self::EMAIL_TEMPLATE_ID, $quote->getClient()->getEmail(), '', '', $pdfFilePath, $fileName, $paymentLink);
             
@@ -123,15 +123,6 @@ class QuoteController extends AbstractController
           'buttonText' => 'Ajouter',
           'icon' => 'ti-playlist-add',
         ]);
-    }
-
-    // Route temporaire pour la page de paiement test
-    #[Route('/payment', name: 'app_payment')]
-    public function payment(Request $request): Response
-    {
-      // C'est là que se feront les traitement du paiement
-  
-      // return new Response('Page de paiement pour la facture '.$quote->getId());
     }
 
     #[Route('/{id}/edit', name: 'app_quote_edit', methods: ['GET', 'POST'])]

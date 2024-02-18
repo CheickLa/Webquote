@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payez votre facture{% endblock %}
+
+{% block body %}
+<div class="p-2.5 md:p-0 flex w-screen min-h-screen justify-center items-start md:items-center bg-gray-50">
+  <div class="flex flex-col justify-center items-start gap-5">
+    <!--Logo-->
+    <span class="text-3xl md:text-4xl font-webquote text-webquote-500">Webquote</span>
+
+    <main class="flex md:min-w-[500px] p-5 flex-col items-start gap-5 bg-white rounded-6">
+      <!--Amount, date and download--> 
+      <div class="flex justify-between items-start self-stretch">
+        <!--Amount and date-->
+        <div class="flex flex-col justify-center items-start gap-2.5">
+          <h2 class="text-2xl">
+            {{ invoice.quote.amount|format_currency('EUR') }}
+          </h2>
+          <small class="text-sm text-gray-500">
+            {{ invoice.date|date('d/m/Y') }}
+          </small>
+        </div>
+
+        <!--Download-->
+        <i class="ti ti-download"></i>
+      </div>
+
+      <!--Description-->
+      <div class="flex flex-col justify-center items-start gap-2.5 self-stretch">
+        <p class="text-base">{{ invoice.quote.title }}</p>
+
+        <div>
+          <p class="text-base">Prestations :</p>
+          <ul class="list-disc list-inside">
+            {% for service in invoice.quote.services %}
+            <li>{{ service.name }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <!--Invoice number-->
+      <small class="text-sm text-gray-500 self-end">
+        #{{ invoice.id }}
+      </small>
+    </main>
+
+    <!--Payment button-->
+    <twig:Button id="payment-btn" class="bg-webquote-500 hover:bg-webquote-600 text-white self-stretch justify-center">
+      Payer {{ invoice.quote.amount|format_currency('EUR') }}
+    </twig:Button>
+
+    <!--Done button-->
+    <twig:Button id="done-btn" class="bg-green-500 text-white self-stretch justify-center hidden">
+      <i class="ti ti-check"></i>
+    </twig:Button>
+  </div>
+</div>
+
+<script>
+const paymentBtn = document.querySelector('#payment-btn');
+const doneBtn = document.querySelector('#done-btn');
+
+paymentBtn.addEventListener('click', async () => {
+  const id = new URLSearchParams(window.location.search).get('id');
+
+  const response = await fetch('{{ path("app_payment") }}', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }),
+  });
+
+  if (response.ok) {
+    Snackbar.show({
+      text: 'Paiement effectué avec succès. Vous pouvez à présent fermer cette page.',
+      pos: 'bottom-right',
+      showAction: false,
+    }); 
+
+    doneBtn.classList.remove('hidden');
+    paymentBtn.classList.add('hidden');
+  } else {
+    Snackbar.show({
+      text: 'Une erreur est survenue lors du paiement. Veuillez réessayer.',
+      textColor: 'red',
+      pos: 'bottom-right',
+      showAction: false,
+    });
+  }
+});
+</script>
+
+{% endblock %}
