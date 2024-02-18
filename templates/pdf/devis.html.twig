@@ -26,6 +26,18 @@
                     <td class="font-bold">Mail :</td>
                     <td>{{ mail }}</td>
                 </tr>
+                <tr>
+                    <td class="font-bold ">Prestations:</td>
+                    <td>
+                        {% if currentServices|default(null) %}
+                            <ul class="list-disc list-inside">
+                                {% for service in currentServices %}
+                                    <li>{{ service.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

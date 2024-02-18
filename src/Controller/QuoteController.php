@@ -71,6 +71,8 @@ class QuoteController extends AbstractController
             $clientId = $form->get('client')->getData();
             $client = $clientRepository->find($clientId);
 
+            $currentServices = $quote->getServices();
+
             $quote->setClient($client);
 
             $entityManager->persist($quote);
@@ -81,6 +83,7 @@ class QuoteController extends AbstractController
               'devis'  => $quote->getId(),
               'client' => $quote->getClient(),
               'amount' => $quote->getAmount(),
+              'currentServices' => $currentServices,
               'date'   => $quote->getDate(),
               'mail'   => $quote->getClient()->getEmail() 
             ]);
