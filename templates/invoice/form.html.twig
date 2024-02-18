@@ -1,0 +1,39 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}
+Factures
+{% endblock %}
+
+{% block content %}
+<h1 class="font-title font-bold text-2xl">Factures</h1>
+
+<div class="flex flex-col items-center flex-1 self-stretch overflow-hidden">
+  {{ form_start(form, {
+  attr: {
+    class: 'flex flex-col justify-center items-start gap-[30px] md:w-[450px] self-stretch md:self-auto overflow-hidden',
+    id: 'invoice-form',
+    }
+  }) }}
+  <h1 class="text-2xl font-semibold flex-shrink-0">{{ title }}</h1>
+
+  {{ form_errors(form.paid) }}
+  {{ form_errors(form.date) }}
+
+  <div class="flex flex-col gap-2.5 self-stretch overflow-auto"> 
+    <twig:TextField name="{{ field_name(form.date) }}" value="{{ field_value(form.date).format('Y-m-d')|default('now'|date('Y-m-d')) }}" label="Date" type="date" min="{{ 'now'|date('Y-m-d') }}" /> 
+
+    <!--TODO maybe do better-->
+    {{ form_row(form.paid) }}
+  </div>
+
+  <div class="flex items-center gap-2.5 self-stretch flex-shrink-0">
+    <twig:BackButton href="{{ path(backPath) }}" />
+    <twig:Button id="submit-btn" class="bg-webquote-500 hover:bg-webquote-600 text-white flex-1 justify-center">
+      <i class="ti {{ icon }}"></i>
+      {{ buttonText }}
+    </twig:Button>
+  </div>
+  {{ form_end(form) }}
+</div>
+
+{% endblock %}

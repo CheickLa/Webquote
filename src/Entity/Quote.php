@@ -47,6 +47,9 @@ class Quote
     #[ORM\OneToOne(mappedBy: 'quote', cascade: ['persist', 'remove'])]
     private ?Invoice $invoice = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
@@ -132,5 +135,22 @@ class Quote
         $this->invoice = $invoice;
 
         return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): static
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

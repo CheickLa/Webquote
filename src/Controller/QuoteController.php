@@ -52,7 +52,7 @@ class QuoteController extends AbstractController
       return $this->render('quote/index.html.twig', [
         'clients' => $clients,
         'client' => $client,
-        'quotes' => $quotes,
+        'elements' => $quotes,
       ]);
     }
 

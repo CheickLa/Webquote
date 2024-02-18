@@ -1,82 +1,50 @@
-{% extends 'dashboard/base.html.twig' %}
+{% extends 'quote/base.html.twig' %}
 
 {% block title %}
 Devis	
 {% endblock %}
 
-{% block content %}
-<h1 class="font-title font-bold text-2xl">Devis</h1>
-
-<div
-  class="self-stretch flex flex-col gap-5 justify-between">
-  {# Select #}
-  <form method="get" id="cli-select" action="{{ path('app_quote_index') }}" class="self-stretch md:self-start">
-    <twig:Select name="id" label="Sélectionner un client" class="flex-1 md:flex-auto">
-      {% for cli in clients %}
-      <option value="{{ cli.id }}" {% if cli.id == client.id %} selected{% endif %}>{{ cli.name }}</option>
-      {% else %}
-      <option value="">Pas de client</option>
-      {% endfor %}
-    </twig:Select>
-  </form>
-
-  {# Devis #}
-  <div class="flex flex-col self-stretch pt-2.5 gap-2.5 overflow-scroll
-    max-h-[calc(100svh-292px)] md:max-h-[calc(100svh-369.5px)]">
-    {% for quote in quotes %}
-    <div
-      class="flex md:gap-10 rounded-6 border border-gray-300 p-2.5 items-center bg-white hover:bg-gray-300">
-      <div class="w-0 flex flex-col flex-1 md:flex-row md:items-center gap-5">
-        <h3 class="text-md basis-1/3">{{ quote.date|date('d/m/Y') }}</h3>
-        <div class="md:grow">
-          <ul class="list-disc list-inside">
-            {% for service in quote.services %}
-              <li class="text-md overflow-hidden text-ellipsis whitespace-nowrap max-w-4/5">{{ service }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="flex md:flex-1 md:justify-end">
-          <p class="text-md">{{ quote.amount }} €</p>
-        </div>
-      </div>
-
-      {# Actions #}
-      <div
-        class="flex gap-2.5">
-        {# Edit #}
-        <twig:ButtonLink href="{{ path('app_quote_edit', {'id': quote.id}) }}" id="edit-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
-          <i class="ti ti-edit"></i>
-        </twig:ButtonLink>
-
-        {# Delete #}
-        <form method="post" action="{{ path('app_quote_delete', {'id': quote.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer ce devis ?')">
-          <twig:Button id="delete-service-btn" class="bg-gray-900 hover:bg-black text-white">
-            <i class="ti ti-trash"></i>
-          </twig:Button>
-
-          <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ quote.id) }}">
-        </form>
-      </div>
-    </div>
+{% block clientSelect %}
+{# Select #}
+<form method="get" id="cli-select" action="{{ path('app_quote_index') }}" class="self-stretch md:self-start">
+  <twig:Select name="id" label="Sélectionner un client" class="flex-1 md:flex-auto">
+    {% for cli in clients %}
+    <option value="{{ cli.id }}" {% if cli.id == client.id %} selected{% endif %}>{{ cli.name }}</option>
     {% else %}
-      {% if client is not null %}
-        Vous n'avez aucun devis pour ce client pour l'instant 
-      {% endif %}
+    <option value="">Pas de client</option>
     {% endfor %}
-  </div>
+  </twig:Select>
+</form>
+{% endblock %}
 
-  {% if client is not null %}
-  <twig:ButtonLink id="add-quote-btn" href="{{ path('app_quote_new', {'id': client.id}) }}" class="text-webquote-500 self-start">
-    <i class="ti ti-playlist-add"></i>
-    Ajouter un devis
-  </twig:ButtonLink>
-  {% endif %}
+{% block buttons %}
+{# Invoice #}
+<twig:ButtonLink href="{{ elt.invoice ? path('app_invoice_index', {'id': client.id}) : path('app_invoice_new', { 'quote_id': elt.id }) }}" id="invoice-btn" class="bg-webquote-500 flex-1 md:flex-auto justify-center md:justify-start text-white">
+  <i class="ti {{ elt.invoice ? 'ti-file-description' : 'ti-file-plus' }}"></i>
+</twig:ButtonLink>
 
-  <script>
-  const select = document.querySelector('#cli-select');
-  select.addEventListener('change', () => {
-    select.submit();
-  });
-  </script>
-  {% endblock %}
+{# Edit #}
+<twig:ButtonLink href="{{ path('app_quote_edit', {'id': elt.id}) }}" id="edit-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
+  <i class="ti ti-edit"></i>
+</twig:ButtonLink>
 
+{# Delete #}
+<form method="post" action="{{ path('app_quote_delete', {'id': elt.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer ce devis ?')">
+  <twig:Button id="delete-service-btn" class="bg-gray-900 hover:bg-black text-white">
+    <i class="ti ti-trash"></i>
+  </twig:Button>
+
+  <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ elt.id) }}">
+</form>
+{% endblock %}
+
+{% block emptyMessage %}
+Vous n'avez aucun devis pour ce client pour l'instant
+{% endblock %}
+
+{% block createButton %}
+<twig:ButtonLink id="add-quote-btn" href="{{ path('app_quote_new', {'id': client.id}) }}" class="text-webquote-500 self-start">
+  <i class="ti ti-playlist-add"></i>
+  Ajouter un devis
+</twig:ButtonLink>
+{% endblock %}

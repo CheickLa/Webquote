@@ -7,26 +7,28 @@
 {% block content %}
 <h1 class="font-title font-bold text-2xl">Devis</h1>
 
-<div class="flex flex-col items-center flex-1 self-stretch">
+<div class="flex flex-col items-center flex-1 self-stretch overflow-hidden">
   {{ form_start(form, {
   attr: {
-    class: 'flex flex-col justify-center items-start gap-[30px] md:w-[450px] self-stretch md:self-auto',
+    class: 'flex flex-col justify-center items-start gap-[30px] md:w-[450px] self-stretch md:self-auto overflow-hidden',
     id: 'quote-form',
     }
   }) }}
-  <h1 class="text-2xl font-semibold">{{ title }}</h1>
+  <h1 class="text-2xl font-semibold flex-shrink-0">{{ title }}</h1>
 
   {{ form_errors(form.client) }}
   {{ form_errors(form.services) }}
   {{ form_errors(form.amount) }}
   {{ form_errors(form.date) }}
 
-  <div class="flex flex-col gap-2.5 self-stretch"> 
+  <div class="flex flex-col gap-2.5 self-stretch overflow-auto"> 
     <twig:Select name="{{ field_name(form.client) }}" label="Client">
       {% for client in clients %}
       <option value="{{ client.id }}" {% if currentClient|default(null) == client.id %}selected{% endif %}>{{ client.name }}</option>
       {% endfor %}
     </twig:Select> 
+
+    <twig:TextField name="{{ field_name(form.title) }}" value="{{ field_value(form.title)|default('') }}" label="Titre" /> 
 
     <div class="flex flex-1 justify-between gap-2.5">
       <twig:Select name="service_categories" label="Catégorie de prestations" id="categories">
@@ -65,7 +67,7 @@
     <twig:TextField name="{{ field_name(form.date) }}" value="{{ field_value(form.date).format('Y-m-d')|default('now'|date('Y-m-d')) }}" label="Date" type="date" min="{{ 'now'|date('Y-m-d') }}" /> 
   </div>
 
-  <div class="flex items-center gap-2.5 self-stretch">
+  <div class="flex items-center gap-2.5 self-stretch flex-shrink-0">
     <twig:BackButton href="{{ path('app_quote_index') }}" />
     <twig:Button id="submit-btn" class="bg-webquote-500 hover:bg-webquote-600 text-white flex-1 justify-center">
       <i class="ti {{ icon }}"></i>

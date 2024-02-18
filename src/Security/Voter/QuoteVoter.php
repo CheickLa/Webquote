@@ -11,10 +11,11 @@ class QuoteVoter extends Voter
     public const CREATE = 'CREATE';
     public const EDIT = 'EDIT';
     public const DELETE = 'DELETE';
+    public const VIEW = 'VIEW';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array($attribute, [self::CREATE, self::EDIT, self::DELETE])
+        return in_array($attribute, [self::CREATE, self::EDIT, self::DELETE, self::VIEW])
             && $subject instanceof \App\Entity\Quote;
     }
 
@@ -32,6 +33,7 @@ class QuoteVoter extends Voter
             case self::CREATE:
             case self::EDIT:
             case self::DELETE:
+            case self::VIEW:
               $matchClientAgency = $user->getAgency() === $subject->getClient()->getAgency();
               $services = $subject->getServices();
               $matchEachService = array_map(fn($service) => $user->getAgency() === $service->getServiceCategory()->getAgency(), $services->toArray());

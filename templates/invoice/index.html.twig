@@ -1,0 +1,53 @@
+{% extends 'quote/base.html.twig' %}
+
+{% block title %}
+Factures
+{% endblock %}
+
+{% block clientSelect %}
+{# Select #}
+<form method="get" id="cli-select" action="{{ path('app_invoice_index') }}" class="self-stretch md:self-start">
+  <twig:Select name="id" label="Sélectionner un client" class="flex-1 md:flex-auto">
+    {% for cli in clients %}
+    <option value="{{ cli.id }}" {% if cli.id == client.id %} selected{% endif %}>{{ cli.name }}</option>
+    {% else %}
+    <option value="">Pas de client</option>
+    {% endfor %}
+  </twig:Select>
+</form>
+{% endblock %}
+
+{% block rowContent %}
+{# Status #}
+<div class="flex basis-1/12 text-center">
+  {% if elt.paid %}
+  <span class="inline-flex flex-1 justify-center self-start rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/10">
+    Payée
+  </span>
+  {% else %}
+  <span class="inline-flex flex-1 justify-center self-start items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-600 ring-1 ring-inset ring-yellow-500/10">
+    En attente
+  </span>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block buttons %}
+{# Edit #}
+<twig:ButtonLink href="{{ path('app_invoice_edit', {'id': elt.id}) }}" id="edit-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
+  <i class="ti ti-edit"></i>
+</twig:ButtonLink>
+
+{# Delete #}
+<form method="post" action="{{ path('app_invoice_delete', {'id': elt.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer cette facture ?')">
+  <twig:Button id="delete-service-btn" class="bg-gray-900 hover:bg-black text-white">
+    <i class="ti ti-trash"></i>
+  </twig:Button>
+
+  <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ elt.id) }}">
+</form>
+{% endblock %}
+
+{% block emptyMessage %}
+Ce client n'a aucune facture pour l'instant
+{% endblock %}

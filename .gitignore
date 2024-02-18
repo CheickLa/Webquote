@@ -1,4 +1,4 @@
-pdf/
+/public/pdf/
 
 ###> symfony/framework-bundle ###
 /.env.local
