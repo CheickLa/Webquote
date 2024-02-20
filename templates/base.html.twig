@@ -28,6 +28,14 @@
           });
             {% endfor %}
           {% endfor %}
+
+          // Get theme preference from local storage
+          const localTheme = localStorage.getItem('theme');
+          if (localTheme) {
+            document.body.classList.add(localTheme);
+          }
         </script>
+
+        {% block scripts %}{% endblock %}
     </body>
 </html>

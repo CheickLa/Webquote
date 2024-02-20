@@ -1,5 +1,5 @@
 <nav
-	class="absolute hidden top-0 left-0 md:static md:transition-none md:flex flex-col w-5/6 md:w-auto h-full md:h-auto self-stretch py-2.5 px-2.5 gap-5 bg-webquote-950" id="sidebar">
+	class="absolute hidden top-0 left-0 md:static md:transition-none md:flex flex-col w-5/6 md:w-auto h-full md:h-auto self-stretch py-2.5 px-2.5 gap-5 bg-webquote-950 dark:bg-wqdark-main" id="sidebar">
 	<!--Logo-->
 	<div class="flex items-center justify-between md:justify-center py-5 md:w-60">
     <div class="w-[24px] md:hidden"></div>
@@ -15,6 +15,6 @@
 		<twig:SidebarItem value="Prestations" icon="tools" route="app_service_category_index" prefix="app_service"/>
 		<twig:SidebarItem value="Devis" icon="file-import" route="app_quote_index" prefix="app_quote" />
 		<twig:SidebarItem value="Factures" icon="wallet" route="app_invoice_index" prefix="app_invoice" />
-		<twig:SidebarItem value="Paramètres" icon="settings"/>
+		<twig:SidebarItem value="Paramètres" icon="settings" route="app_settings" prefix="app_settings" />
 	</div>
 </nav>

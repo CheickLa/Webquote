@@ -1,0 +1,38 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Paramètres{% endblock %}
+
+{% block content %}
+<h1 class="font-title font-bold text-2xl dark:text-white">Paramètres</h1>
+
+{# Wrapper #}
+<div class="flex flex-col items-center self-stretch">
+  {# Content #}
+  <div class="flex flex-col justify-center gap-[30px] self-stretch md:w-[450px] md:self-auto">
+    <twig:Select id="theme" name="theme" label="Thème">
+      <option value="light">Clair</option>
+      <option value="dark">Sombre</option>
+    </twig:Select>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+<script>
+  window.onload = () => {
+    const theme = document.querySelector('#theme');
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+      theme.value = currentTheme;
+    }
+  };
+
+  const theme = document.querySelector('#theme');
+  theme.addEventListener('change', () => {
+    document.body.classList.remove('dark', 'light');
+    document.body.classList.add(theme.value);
+    localStorage.setItem('theme', theme.value);
+  });
+</script>
+{% endblock %}

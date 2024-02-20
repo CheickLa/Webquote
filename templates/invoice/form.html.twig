@@ -5,7 +5,7 @@ Factures
 {% endblock %}
 
 {% block content %}
-<h1 class="font-title font-bold text-2xl">Factures</h1>
+<h1 class="font-title font-bold text-2xl dark:text-white">Factures</h1>
 
 <div class="flex flex-col items-center flex-1 self-stretch overflow-hidden">
   {{ form_start(form, {
@@ -14,7 +14,7 @@ Factures
     id: 'invoice-form',
     }
   }) }}
-  <h1 class="text-2xl font-semibold flex-shrink-0">{{ title }}</h1>
+  <h1 class="text-2xl font-semibold flex-shrink-0 dark:text-white">{{ title }}</h1>
 
   {{ form_errors(form.paid) }}
   {{ form_errors(form.date) }}
@@ -22,8 +22,7 @@ Factures
   <div class="flex flex-col gap-2.5 self-stretch overflow-auto"> 
     <twig:TextField name="{{ field_name(form.date) }}" value="{{ field_value(form.date).format('Y-m-d')|default('now'|date('Y-m-d')) }}" label="Date" type="date" min="{{ 'now'|date('Y-m-d') }}" /> 
 
-    <!--TODO maybe do better-->
-    {{ form_row(form.paid) }}
+    {{ form_row(form.paid, { 'label_attr': { 'class': 'pr-2.5 dark:text-white' } }) }}
   </div>
 
   <div class="flex items-center gap-2.5 self-stretch flex-shrink-0">

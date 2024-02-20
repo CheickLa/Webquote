@@ -1,6 +1,6 @@
 {# templates/components/Select.html.twig #}
 <div class="flex flex-col gap-2.5 {{ class }}">
-<label for="{{ id|default(name) }}" class="max-w-full overflow-hidden whitespace-nowrap text-ellipsis">{{ label }}</label>
+<label for="{{ id|default(name) }}" class="max-w-full overflow-hidden whitespace-nowrap text-ellipsis dark:text-white">{{ label }}</label>
   <select name="{{ name }}" id="{{ id|default(name) }}" class="p-2.5 rounded-6 bg-white border border-gray-300 whitespace-nowrap overflow-hidden text-ellipsis w-full" required>
     {% block content %}{% endblock %}
 	</select>

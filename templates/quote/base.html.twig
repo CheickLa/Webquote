@@ -1,7 +1,7 @@
 {% extends 'dashboard/base.html.twig' %}
 
 {% block content %}
-<h1 class="font-title font-bold text-2xl">
+<h1 class="font-title font-bold text-2xl dark:text-white">
   {% block title %}{% endblock %}
 </h1>
 
@@ -42,13 +42,16 @@
 
   {% if client is not null %}
     {% block createButton %}{% endblock %}
-  {% endif %}
+  {% endif %} 
+{% endblock %}
 
-  <script>
+{% block scripts %}
+{{ parent() }}
+<script>
   const select = document.querySelector('#cli-select');
   select.addEventListener('change', () => {
     select.submit();
   });
-  </script>
-  {% endblock %}
+</script>
+{% endblock %}
 

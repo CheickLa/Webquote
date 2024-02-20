@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
@@ -19,6 +20,11 @@ module.exports = {
           '800': '#11427b',
           '900': '#143866',
           '950': '#0d2444',
+        },
+        'wqdark': {
+          'main': '#171717',
+          'secondary': '#252525',
+          'background': '#1E1E1E',
         },
       },
       borderRadius: {

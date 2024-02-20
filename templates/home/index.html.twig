@@ -3,13 +3,13 @@
 
 {% block body %}
   {# Wrapper #}
-  <div class="min-w-full min-h-screen flex flex-col items-start gap-2.5 p-2.5 md:py-5 md:px-[30px]">
+  <div class="min-w-full min-h-screen flex flex-col items-start gap-2.5 p-2.5 md:py-5 md:px-[30px] dark:bg-wqdark-main">
     {# Nav #}
     <nav class="hidden md:flex justify-between items-center self-stretch">
       {# Title + menu #}
       <div class="flex items-center gap-10">
         <span class="text-[32px] font-semibold text-webquote-500 font-webquote">Webquote</span>
-        <div class="flex items-center gap-[30px]">
+        <div class="flex items-center gap-[30px] dark:text-white">
           <a href="#"><span class="text-base">A propos de nous</span></a>
           <a href="#"><span class="text-base">Tarifs</span></a>
           <a href="#"><span class="text-base">Nous contacter</span></a>
@@ -18,6 +18,12 @@
 
       {# Buttons #}
       <div class="flex items-start gap-2.5">
+        <div class="flex items-center self-stretch">
+          <div class="relative">
+            <input type="checkbox" class="switch" id="theme-switch" />
+          </div>
+        </div>
+
         <twig:ButtonLink href="{{ path('app_login') }}" id="login-btn" 
         class="border border-webquote-500 text-webquote-500 bg-white 
         hover:bg-gray-50">
@@ -33,13 +39,13 @@
 
     {# Mobile Nav #}
     <nav class="flex md:hidden justify-between items-center self-stretch">
-      <i class="ti ti-menu-2 cursor-pointer text-black" id="menu-open-btn"></i>
+      <i class="ti ti-menu-2 cursor-pointer text-black dark:text-white" id="menu-open-btn"></i>
       <p class="text-xl text-webquote-500 font-semibold">webquote</p>
-      <a href="{{ path('app_login') }}"><i class="ti ti-user-circle text-black"></i></a>
+      <a href="{{ path('app_login') }}"><i class="ti ti-user-circle text-black dark:text-white"></i></a>
     </nav>
 
     {# Mobile Menu #}
-    <div class="absolute hidden top-0 left-0 flex-col w-full h-full bg-webquote-950 z-20 p-2.5 gap-5" id="menu">
+    <div class="absolute hidden top-0 left-0 flex-col w-full h-full bg-webquote-950 z-20 p-2.5 gap-5 dark:bg-wqdark-background" id="menu">
       <div class="flex justify-between items-center">
         <div class="w-[24px]"></div>
         <span class="text-xl text-white self-center">webquote</span>
@@ -49,6 +55,7 @@
       <a href="#"><p class="text-white">A propos de nous</p></a>
       <a href="#"><p class="text-white">Tarifs</p></a>
       <a href="#"><p class="text-white">Nous contacter</p></a>
+      <a href="#" onclick="return changeTheme();"><p class="text-white">Changer de thème</p></a>
     </div>
 
     {# Content #}
@@ -57,8 +64,8 @@
       <div class="flex md:py-2.5 md:px-5 flex-col md:justify-center items-start gap-10 md:gap-20 md:flex-1 self-stretch">
         {# Text #}
         <div class="flex flex-col justify-center items-start gap-[30px] md:gap-[60px] self-stretch">
-          <h1 class="text-2xl md:text-5xl font-semibold font-title">Facturez vos <i class="text-webquote-500">prestations web</i> à vitesse grand V</h1>
-          <h2 class="md:text-2xl">
+          <h1 class="text-2xl md:text-5xl font-semibold font-title dark:text-white">Facturez vos <i class="text-webquote-500">prestations web</i> à vitesse grand V</h1>
+          <h2 class="md:text-2xl dark:text-white">
             Webquote aide les agences web à gérer facilement et rapidement 
             la facturation de leurs clients. Pourquoi pas la vôtre ?
           </h2>
@@ -77,21 +84,49 @@
         <img src="{{ asset('build/images/planet.svg') }}" alt="" class="hidden md:inline absolute pb-[41px]">
       </div>
     </main>
-  </div>
+  </div> 
+{% endblock %}
 
-  <script>
-		const openButton = document.querySelector('#menu-open-btn');
-    const menu = document.querySelector('#menu');
-    const closeButton = document.querySelector('#menu-close-btn');
+{% block scripts %}
+<script>
+const openButton = document.querySelector('#menu-open-btn');
+const menu = document.querySelector('#menu');
+const closeButton = document.querySelector('#menu-close-btn');
 
-    openButton.addEventListener('click', (e) => {
-      menu.classList.add('flex');
-      menu.classList.remove('hidden');
-    });
+openButton.addEventListener('click', (e) => {
+  menu.classList.add('flex');
+  menu.classList.remove('hidden');
+});
 
-    closeButton.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      menu.classList.remove('flex');
-    });
-	</script>
+closeButton.addEventListener('click', () => {
+  menu.classList.add('hidden');
+  menu.classList.remove('flex');
+});
+
+const themeSwitch = document.querySelector('#theme-switch');
+
+if (localTheme === 'dark') {
+  themeSwitch.checked = true;
+}
+
+themeSwitch.addEventListener('change', (e) => {
+  if (e.target.checked) {
+    document.body.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.body.classList.remove('dark');
+    localStorage.setItem('theme', 'light');
+  }
+});
+
+const changeTheme = () => {
+  if (localTheme === 'dark') {
+    document.body.classList.remove('dark');
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.body.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  }
+};
+</script>
 {% endblock %}

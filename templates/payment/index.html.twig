@@ -57,6 +57,10 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+{{ parent() }}
 <script>
 const paymentBtn = document.querySelector('#payment-btn');
 const doneBtn = document.querySelector('#done-btn');
@@ -91,5 +95,4 @@ paymentBtn.addEventListener('click', async () => {
   }
 });
 </script>
-
 {% endblock %}

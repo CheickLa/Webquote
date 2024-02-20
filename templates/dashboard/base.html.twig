@@ -1,48 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="w-screen h-screen flex flex-1 p-2.5 md:p-0">
+	<div class="w-screen h-screen flex flex-1 p-2.5 md:p-0 dark:bg-wqdark-background">
 		<twig:Sidebar/>
 
 		<div
 			class="flex flex-1 flex-col self-stretch gap-[30px] md:gap-0 md:bg-webquote-950">
 			{# Header #}
 			<div
-				class="flex md:px-5 md:py-4 justify-between md:justify-end items-center self-stretch bg-white">
+				class="flex md:px-5 md:py-4 justify-between md:justify-end items-center self-stretch bg-white dark:bg-wqdark-background">
         {# Mobile only #}
-        <i class="md:hidden ti ti-menu-2 cursor-pointer text-black" id="menu-open-btn"></i>
+        <i class="md:hidden ti ti-menu-2 cursor-pointer text-black dark:text-white" id="menu-open-btn"></i>
         <p class="md:hidden text-xl text-webquote-500 font-semibold font-webquote">Webquote</p>
 
 
 				<div
 					class="flex items-center gap-6">
-					<p class="hidden md:block text-base font-medium">
+					<p class="hidden md:block text-base font-medium dark:text-white">
             {{ app.user.agency.name }}
           </p>
 					<a href="{{ path('app_logout') }}">
-						<i class="ti ti-logout text-black"></i>
+						<i class="ti ti-logout text-black dark:text-white"></i>
 					</a>
 				</div>
 			</div>
 
 			{# Content #}
-			<main class="flex md:p-[30px] flex-col items-start gap-5 flex-1 self-stretch overflow-hidden bg-white md:shadow-inner">
+			<main class="flex md:p-[30px] flex-col items-start gap-5 flex-1 self-stretch overflow-hidden bg-white md:shadow-inner dark:bg-wqdark-background">
 				{% block content %}{% endblock %}
 			</main>
 		</div>
-	</div>
+	</div>	
+{% endblock %}
 
-	<script>
-		const openButton = document.querySelector('#menu-open-btn');
-    const sidebar = document.querySelector('#sidebar');
-    const closeButton = document.querySelector('#menu-close-btn');
+{% block scripts %}
+<script>
+const openButton = document.querySelector('#menu-open-btn');
+const sidebar = document.querySelector('#sidebar');
+const closeButton = document.querySelector('#menu-close-btn');
 
-    openButton.addEventListener('click', (e) => {
-      sidebar.classList.remove('hidden');
-    });
+openButton.addEventListener('click', (e) => {
+  sidebar.classList.remove('hidden');
+});
 
-    closeButton.addEventListener('click', () => {
-      sidebar.classList.add('hidden');
-    });
-	</script>
+closeButton.addEventListener('click', () => {
+  sidebar.classList.add('hidden');
+});
+</script>
 {% endblock %}

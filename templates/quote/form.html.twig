@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="font-title font-bold text-2xl">Devis</h1>
+<h1 class="font-title font-bold text-2xl dark:text-white">Devis</h1>
 
 <div class="flex flex-col items-center flex-1 self-stretch overflow-hidden">
   {{ form_start(form, {
@@ -14,7 +14,7 @@
     id: 'quote-form',
     }
   }) }}
-  <h1 class="text-2xl font-semibold flex-shrink-0">{{ title }}</h1>
+  <h1 class="text-2xl font-semibold flex-shrink-0 dark:text-white">{{ title }}</h1>
 
   {{ form_errors(form.client) }}
   {{ form_errors(form.services) }}
@@ -48,7 +48,7 @@
     <!--Affichage des prestations sélectionnées-->
     <div class="flex flex-col gap-2.5">
       <div class="flex flex-1 gap-2.5 justify-between">
-        <label for="{{ field_name(form.services) }}">Prestations sélectionnées</label>
+        <label for="{{ field_name(form.services) }}" class="dark:text-white">Prestations sélectionnées</label>
         <button type="button" id="remove-selected-services" class="underline">
           Effacer
         </button>
@@ -76,7 +76,10 @@
   </div>
   {{ form_end(form) }}
 </div>
+{% endblock %}
 
+{% block scripts %}
+{{ parent() }}
 <script>
   const fetchServices = async (categoryId) => {
     const response = await fetch(`{{ path('app_service_get_by_category') }}?category_id=${categoryId}`);
@@ -153,5 +156,4 @@
     return true;
   });
 </script>
-
 {% endblock %}
