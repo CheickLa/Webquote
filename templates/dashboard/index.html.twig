@@ -1,8 +1,61 @@
 {% extends 'dashboard/base.html.twig' %}
 
 {% block title %}
-  Accueil
+Accueil
 {% endblock %}
 
 {% block content %}
+<div class="flex flex-wrap p-2.5 items-center gap-5 self-stretch flex-col lg:flex-row">
+  <twig:DashboardCard
+    backgroundColor="bg-emerald-600"
+    iconBackgroundColor="bg-emerald-700"
+    icon="ti-cash"
+    value="{{ turnover|format_currency('EUR') }}"
+    label="Chiffre d'affaires du mois"
+    labelColor="text-gray-200"
+  />
+
+  <twig:DashboardCard
+    backgroundColor="bg-webquote-600"
+    iconBackgroundColor="bg-webquote-700"
+    icon="ti-users"
+    value="{{ clientCount }}"
+    label="Clients enregistrés"
+    labelColor="text-gray-200"
+  />
+
+  <div class="flex flex-col items-center gap-2.5 flex-1 self-stretch">
+    <twig:DashboardCard
+      backgroundColor="bg-yellow-600"
+      iconBackgroundColor="bg-yellow-700"
+      icon="ti-category"
+      value="{{ serviceCategoryCount }}"
+      label="Catégories de prestations"
+      labelColor="text-gray-200"
+      small
+    />
+
+    <twig:DashboardCard
+      backgroundColor="bg-gray-200"
+      iconBackgroundColor="bg-yellow-100"
+      icon="ti-tool"
+      iconColor="text-yellow-600"
+      value="{{ serviceCount }}"
+      valueColor="text-black"
+      label="Prestations"
+      labelColor="text-gray-700"
+      small
+    />
+  </div>
+</div>
+
+<div class="flex flex-1 flex-wrap flex-col lg:flex-row p-2.5 items-center gap-5 self-stretch">
+  <div class="flex-1 self-stretch rounded-[8px] bg-white p-2.5">
+    {{ render_chart(monthlyTurnoverChart) }}
+  </div>
+
+  <div class="flex-1 self-stretch rounded-[8px] bg-white p-2.5">
+    {{ render_chart(servicePieChart) }}
+  </div>
+</div>
 {% endblock %}

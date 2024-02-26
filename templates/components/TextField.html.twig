@@ -13,8 +13,8 @@
           min="{{ min }}"
         {% endif %}
         autofocus
+        {% if not required %}
+          placeholder="Optionnel"
+        {% endif %}
     />
-    {% if not required %}
-      <small class="text-gray-500">Ce champ est optionnel</small>
-    {% endif %}
 </div>

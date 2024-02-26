@@ -21,20 +21,29 @@ class InvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Invoice::class);
     }
 
-//    /**
-//     * @return Invoice[] Returns an array of Invoice objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Invoice[] Returns an array of Invoice objects
+    */
+    public function findByDate($year = null, $month = null): array
+    {
+      if ($year === null) {
+        $year = (int) date('Y');
+      }
+      if ($month === null) {
+        $month = (int) date('m');
+      }
+
+      $start = new \DateTimeImmutable("$year-$month-01T00:00:00");
+      $end = $start->modify('last day of this month')->setTime(23, 59, 59);
+
+      return $this->createQueryBuilder('invoice')
+        ->where('invoice.date BETWEEN :start AND :end')
+        ->setParameter('start', $start->format('Y-m-d H:i:s'))
+        ->setParameter('end', $end->format('Y-m-d H:i:s'))
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Invoice
 //    {

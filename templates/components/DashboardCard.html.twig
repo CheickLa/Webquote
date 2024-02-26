@@ -1,0 +1,19 @@
+{# templates/components/DashboardCard.html.twig #}
+<div class="flex p-5 {{ small ? 'items-center' : 'flex-col items-start' }} gap-5 flex-1 self-stretch rounded-[8px] {{ backgroundColor }}">
+  {# Icon #}
+  <div class="flex w-8 aspect-square flex-col justify-center items-center {{ iconBackgroundColor }} rounded-[8px]">
+    <i class="ti {{ icon }} {{ iconColor }} text-xl"></i>
+  </div>
+
+  <div class="flex flex-col {{ small ? '' : 'gap-2.5' }}">
+    {# Value #}
+    <p class="{{ valueColor }} font-title {{ small ? '' : 'text-3xl' }} font-medium">
+      {{ value }}
+    </p>  
+
+    {# Label #}
+    <p class="{{ labelColor }} {{ small ? 'text-xs' : 'text-base' }} font-light">
+      {{ label }}
+    </p>
+  </div>
+</div>
