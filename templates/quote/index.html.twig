@@ -17,6 +17,8 @@ Devis
 </form>
 {% endblock %}
 
+{% block goto %}{{ path('app_quote_edit', {'id': elt.id}) }}{% endblock %}
+
 {% block buttons %}
 {# Invoice #}
 <twig:ButtonLink href="{{ elt.invoice ? path('app_invoice_index', {'id': client.id}) : path('app_invoice_new', { 'quote_id': elt.id }) }}" id="invoice-btn" class="bg-webquote-500 flex-1 md:flex-auto justify-center md:justify-start text-white">
@@ -24,28 +26,12 @@ Devis
 </twig:ButtonLink>
 
 {# Download #}
-<twig:ButtonDownload href="{{ path('app_quote_pdf', {'id': elt.id}) }}" id="download-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start" target="_blank">
+<twig:ButtonLink href="{{ path('app_quote_pdf', {'id': elt.id}) }}" id="download-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start" target="_blank">
   <i class="ti ti-download"></i>
-</twig:ButtonDownload>
-
-{# mail #}
-<twig:ButtonMail href="{{ path('app_quote_mail', {'id': elt.id}) }}" id="mail-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
-  <i class="ti ti-mail"></i>
-</twig:ButtonMail>
-
-{# Edit #}
-<twig:ButtonLink href="{{ path('app_quote_edit', {'id': elt.id}) }}" id="edit-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
-  <i class="ti ti-edit"></i>
 </twig:ButtonLink>
 
-{# Delete #}
-<form method="post" action="{{ path('app_quote_delete', {'id': elt.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer ce devis ?')">
-  <twig:Button id="delete-service-btn" class="bg-gray-900 hover:bg-black text-white">
-    <i class="ti ti-trash"></i>
-  </twig:Button>
-
-  <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ elt.id) }}">
-</form>
+{# mail #}
+<twig:EmailButtonLink href="{{ path('app_quote_mail', {'id': elt.id}) }}" id="mail-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start" />
 {% endblock %}
 
 {% block emptyMessage %}

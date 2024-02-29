@@ -1,4 +1,4 @@
 {# templates/components/Button.html.twig #}
-<button type="submit" id="{{ id }}" class="rounded-6 p-2.5 flex items-start gap-2 {{ class }}">
+<button type="submit" id="{{ id }}" class="rounded-6 p-2.5 flex items-start gap-2 {{ class }}" onclick="event.stopPropagation();">
   {% block content %}{% endblock %}
 </button>

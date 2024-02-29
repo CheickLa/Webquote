@@ -34,14 +34,12 @@ Factures
 
 {% block buttons %}
 {# Download #}
-<twig:ButtonDownload href="{{ path('app_invoice_pdf', {'id': elt.id}) }}" id="download-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start" target="_blank">
+<twig:ButtonLink href="{{ path('app_invoice_pdf', {'id': elt.id}) }}" id="download-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start" target="_blank">
   <i class="ti ti-download"></i>
-</twig:ButtonDownload>
+</twig:ButtonLink>
 
 {# Drop mail #}
-<twig:ButtonMail href="{{ path('app_invoice_mail', {'id': elt.id}) }}" id="mail-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
-  <i class="ti ti-mail"></i>
-</twig:ButtonMail>
+<twig:EmailButtonLink href="{{ path('app_invoice_mail', {'id': elt.id}) }}" id="mail-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start" />
 
 {# Delete #}
 <form method="post" action="{{ path('app_invoice_delete', {'id': elt.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer cette facture ?')">

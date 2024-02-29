@@ -39,6 +39,15 @@
     </twig:Button>
 
     {{ form_end(form) }}
+
+    {# Delete #}
+    <form method="post" action="{{ path('app_client_delete', {'id': client.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer ce client ?')">
+      <twig:Button id="delete-client-btn" class="bg-gray-900 hover:bg-black text-white">
+        <i class="ti ti-trash"></i>
+      </twig:Button>
+
+      <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
+    </form>
   </div>
 </div>
 {% endblock %}

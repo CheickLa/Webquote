@@ -37,7 +37,19 @@
 				<i class="ti {{ icon }}"></i>
 				{{ buttonText }}
 			</twig:Button>
-		</div>
-		{{ form_end(form) }}
+
+      {{ form_end(form) }}
+
+      {# Delete #}
+      {% if service.id is not null %} 
+      <form method="post" action="{{ path('app_service_delete', {'id': service.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer cette prestation ?')">
+        <twig:Button id="delete-service-btn" class="bg-gray-900 hover:bg-black text-white">
+          <i class="ti ti-trash"></i>
+        </twig:Button>
+
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+      </form>
+      {% endif %}
+    </div>
 	</div>
 {% endblock %}

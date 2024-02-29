@@ -14,29 +14,12 @@
 
   {# Clients #}
   <div class="flex flex-col self-stretch pt-2.5 gap-2.5 overflow-scroll
-    max-h-[calc(100svh-2.5rem-190px)] md:max-h-[calc(100svh-202px)]">
+    max-h-[calc(100svh-142px)] md:max-h-[calc(100svh-202px)]">
     {% for client in clients %}
     <div
-      class="flex gap-10 rounded-6 border border-gray-300 p-2.5 items-center bg-white hover:bg-gray-300">
+      class="flex gap-10 rounded-6 border border-gray-300 p-2.5 items-center bg-white hover:bg-gray-300 cursor-pointer" onclick="goTo('{{ path('app_client_edit', {'id': client.id}) }}')">
       <div class="flex flex-col flex-1 md:flex-row md:items-center">
         <h3 class="text-md">{{ client.name }}</h3>
-      </div>
-
-      <div
-        class="flex gap-2.5">
-        {# Edit #}
-        <twig:ButtonLink href="{{ path('app_client_edit', {'id': client.id}) }}" id="edit-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
-          <i class="ti ti-edit"></i>
-        </twig:ButtonLink>
-
-        {# Delete #}
-        <form method="post" action="{{ path('app_client_delete', {'id': client.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer ce client ?')">
-          <twig:Button id="delete-client-btn" class="bg-gray-900 hover:bg-black text-white">
-            <i class="ti ti-trash"></i>
-          </twig:Button>
-
-          <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
-        </form>
       </div>
     </div>
     {% else %}

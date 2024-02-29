@@ -55,30 +55,12 @@
 
 	{# Services #}
 	<div class="flex flex-col self-stretch pt-2.5 gap-2.5 overflow-scroll
-			  max-h-[calc(100svh-2.5rem-266.5px)] md:max-h-[calc(100svh-303.5px)]">
+			  max-h-[calc(100svh-356px)] md:max-h-[calc(100svh-341.5px)]">
 		{% for service in services %}
 			<div
-				class="flex gap-10 rounded-6 border border-gray-300 p-2.5 items-center bg-white hover:bg-gray-300">
+				class="flex gap-10 rounded-6 border border-gray-300 p-2.5 items-center bg-white hover:bg-gray-300 cursor-pointer" onclick="goTo('{{ path('app_service_edit', {'id': service.id}) }}')">
 				<div class="flex flex-col flex-1 md:flex-row md:items-center">
 					<h3 class="text-md">{{ service.name }}</h3>
-				</div>
-
-				{# Actions #}
-				<div
-					class="flex gap-2.5">
-					{# Edit #}
-					<twig:ButtonLink href="{{ path('app_service_edit', {'id': service.id}) }}" id="edit-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
-						<i class="ti ti-edit"></i>
-					</twig:ButtonLink>
-
-					{# Delete #}
-					<form method="post" action="{{ path('app_service_delete', {'id': service.id}) }}" onsubmit="return confirm('Souhaitez-vous vraiment supprimer cette prestation ?')">
-						<twig:Button id="delete-service-btn" class="bg-gray-900 hover:bg-black text-white">
-							<i class="ti ti-trash"></i>
-						</twig:Button>
-
-						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
-					</form>
 				</div>
 			</div>
 		{% else %}
