@@ -40,7 +40,7 @@
       <twig:Select name="services" label="Prestations" id="services">
         <option selected disabled>Sélectionner une prestation</option>
         {% for service in services %}
-        <option value="{{ service.id }}">{{ service.name }}</option>
+        <option value="{{ service.id }}" data-price="{{ service.price }}">{{ service.name }}</option>
         {% endfor %}
       </twig:Select>
     </div>
@@ -62,7 +62,7 @@
       </select>
     </div>
 
-    <twig:TextField name="{{ field_name(form.amount) }}" value="{{ field_value(form.amount)|default('') }}" label="Prix" type="number" />
+    <twig:TextField id="price" name="{{ field_name(form.amount) }}" value="{{ field_value(form.amount)|default('') }}" label="Prix" type="number" />
 
     <twig:TextField name="{{ field_name(form.date) }}" value="{{ field_value(form.date).format('Y-m-d')|default('now'|date('Y-m-d')) }}" label="Date" type="date" min="{{ 'now'|date('Y-m-d') }}" /> 
   </div>
@@ -89,6 +89,7 @@
   
   const categories = document.querySelector('#categories');
   const services = document.querySelector('#services');
+  const price = document.querySelector('#price');
 
   categories.addEventListener('change', async () => {
     const data = await fetchServices(categories.value);
@@ -107,6 +108,7 @@
       const option = document.createElement('option');
       option.value = service.id;
       option.textContent = service.name;
+      option.dataset.price = service.price;
       services.appendChild(option);
     }); 
   });
@@ -116,12 +118,17 @@
   // Sélectionner une prestation dans le select des prestations
   // l'ajoute dans la liste des prestations sélectionnées
   services.addEventListener('change', () => {
+    const selectedService = services.options[services.selectedIndex];
+
     const option = document.createElement('option');
-    option.value = services.options[services.selectedIndex].value;
-    option.textContent = services.options[services.selectedIndex].text;
+    option.value = selectedService.value;
+    option.textContent = selectedService.text;
+    option.dataset.price = selectedService.dataset.price;
 
     if (!Array.from(selectedServices.options).some((opt) => opt.value === option.value)) {
       selectedServices.appendChild(option);
+      const currentValue = price.value ? price.value : 0;
+      price.value = (parseFloat(currentValue) + parseFloat(selectedService.dataset.price)).toFixed(2);
     }
   });
 
@@ -130,12 +137,14 @@
   removeSelectedServices.addEventListener('click', () => {
     selectedServices.innerHTML = '';
     services.selectedIndex = 0;
+    price.value = 0;
   });
 
   // Supprime une prestation sélectionnée lorsqu'on clique dessus
   selectedServices.addEventListener('change', () => {
     const selectedOptions = [...selectedServices.options].filter((opt) => opt.selected);
     selectedOptions.forEach((opt) => {
+      price.value = (parseFloat(price.value) - parseFloat(opt.dataset.price)).toFixed(2);
       opt.remove();
       
       // Si la prestation supprimée est sélectionnée dans le select des prestations, on la déselectionne pour permettre à l'utilisateur

@@ -14,4 +14,5 @@ class TextField
     public string $autocomplete = 'on';
     public bool $required = true;
     public string $min;
+    public string $id;
 }
