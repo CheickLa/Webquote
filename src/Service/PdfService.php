@@ -44,4 +44,13 @@ class PdfService
         file_put_contents('pdf/'.$fileName.'.pdf',$output);
     }
 
+    // Fonction pour afficher le pdf dans le navigateur
+    public function showPdf($html)
+    {
+        $this->domPdf->loadHtml($html);
+        $this->domPdf->setPaper('A4','landscape');
+        $this->domPdf->render();
+        return $this->domPdf->output();
+    }
+
 }

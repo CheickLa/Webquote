@@ -22,6 +22,7 @@ Factures
   <div class="flex flex-col gap-2.5 self-stretch overflow-auto"> 
     <twig:TextField name="{{ field_name(form.date) }}" value="{{ field_value(form.date).format('Y-m-d')|default('now'|date('Y-m-d')) }}" label="Date" type="date" min="{{ 'now'|date('Y-m-d') }}" /> 
 
+    {# Au cas où le client décide de payer en espèce après la reception du devis, l'agence pourra directement noter le status en "payé" à création de la facture #}
     {{ form_row(form.paid, { 'label_attr': { 'class': 'pr-2.5 dark:text-white' } }) }}
   </div>
 

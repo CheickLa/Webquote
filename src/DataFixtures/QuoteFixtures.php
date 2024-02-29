@@ -16,7 +16,7 @@ class QuoteFixtures extends Fixture implements DependentFixtureInterface
 
     $clients = $manager->getRepository(Client::class)->findAll();
 
-    for ($i = 0; $i < 100; $i++) {
+    for ($i = 0; $i < 20; $i++) {
       $quote = new Quote();
 
       $client = $faker->randomElement($clients);

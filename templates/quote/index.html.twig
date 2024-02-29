@@ -23,6 +23,16 @@ Devis
   <i class="ti {{ elt.invoice ? 'ti-file-description' : 'ti-file-plus' }}"></i>
 </twig:ButtonLink>
 
+{# Download #}
+<twig:ButtonDownload href="{{ path('app_quote_pdf', {'id': elt.id}) }}" id="download-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start" target="_blank">
+  <i class="ti ti-download"></i>
+</twig:ButtonDownload>
+
+{# mail #}
+<twig:ButtonMail href="{{ path('app_quote_mail', {'id': elt.id}) }}" id="mail-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
+  <i class="ti ti-mail"></i>
+</twig:ButtonMail>
+
 {# Edit #}
 <twig:ButtonLink href="{{ path('app_quote_edit', {'id': elt.id}) }}" id="edit-service-btn" class="bg-gray-100 hover:bg-gray-200 flex-1 md:flex-auto justify-center md:justify-start">
   <i class="ti ti-edit"></i>

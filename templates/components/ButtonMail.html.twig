@@ -1,0 +1,4 @@
+{# templates/components/ButtonLink.html.twig #}
+<a href="{{ href }}" id="{{ id }}" class="rounded-6 p-2.5 flex items-start gap-2 {{ class }}" onclick="return confirm('Vous êtes sur le point de renvoyer un mail au client')">
+  {% block content %}{% endblock %}
+</a>

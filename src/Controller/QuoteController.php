@@ -22,6 +22,7 @@ class QuoteController extends AbstractController
     private $emailService;
 
     private const EMAIL_TEMPLATE_ID = 5684096;
+    private const EMAIL_TEMPLATE_ID_2 = 5736990;
 
     public function __construct(EmailService $emailService)
     {
@@ -90,15 +91,10 @@ class QuoteController extends AbstractController
 
             $fileName = 'Devis_'. $quote->getId();
             $pdf->generatePdf($html,$fileName);
-
-            // Génère le lien de paiement d'un devis
-            $paymentLink = $this->generateUrl('app_payment', [
-              'quote_id' => $quote->getId(),
-            ], UrlGeneratorInterface::ABSOLUTE_URL);
             
             // Envoi du mail
             $pdfFilePath = 'pdf/'.$fileName.'.pdf';
-            $this->emailService->sendEmail(self::EMAIL_TEMPLATE_ID, $quote->getClient()->getEmail(), '', '', $pdfFilePath, $fileName, $paymentLink);
+            $this->emailService->sendEmail(self::EMAIL_TEMPLATE_ID, $quote->getClient()->getEmail(), '', '', $pdfFilePath, $fileName, '');
             
             $this->addFlash('success', 'Devis créé');
 
@@ -126,14 +122,33 @@ class QuoteController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_quote_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Quote $quote, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Quote $quote, EntityManagerInterface $entityManager, PdfService $pdf): Response
     {
       $form = $this->createForm(QuoteType::class, $quote);
       $form->handleRequest($request);
 
+      $currentServices = $quote->getServices();
+
       if ($form->isSubmitted() && $form->isValid()) {
         $this->denyAccessUnlessGranted('EDIT', $quote);
         $entityManager->flush();
+        
+        // Génère le pdf
+        $html = $this->render('pdf/devis.html.twig', [
+          'devis'  => $quote->getId(),
+          'client' => $quote->getClient(),
+          'amount' => $quote->getAmount(),
+          'currentServices' => $currentServices,
+          'date'   => $quote->getDate(),
+          'mail'   => $quote->getClient()->getEmail() 
+        ]);
+
+        $fileName = 'Devis_'. $quote->getId();
+        $pdf->generatePdf($html,$fileName);
+        
+        // Envoi du mail
+        $pdfFilePath = 'pdf/'.$fileName.'.pdf';
+        $this->emailService->sendEmail(self::EMAIL_TEMPLATE_ID_2, $quote->getClient()->getEmail(), '', '', $pdfFilePath, $fileName, '');
 
         $this->addFlash('success', 'Devis modifié');
 
@@ -175,6 +190,68 @@ class QuoteController extends AbstractController
 
     return $this->redirectToRoute('app_quote_index', [
       'id' => $quote->getClient()->getId(),
+    ], Response::HTTP_SEE_OTHER);
+  }
+
+  // Affichage du devis
+  #[Route('/{id}/download', name: 'app_quote_pdf', methods: ['GET'])]
+  public function pdf(Request $request, Quote $quote, PdfService $pdf,ClientRepository $clientRepository, QuoteRepository $quoteRepository): Response
+  { 
+    $agency= $this->getUser()->getAgency();
+
+    if(!$agency){
+      $this->denyAccessUnlessGranted('READ', $quote);
+    }
+
+    $currentServices = $quote->getServices();
+
+    // Génère le pdf et l'afiche dans le navigateur
+    $pdfContent = $pdf->showPdf($this->render("pdf/devis.html.twig", [
+      'devis'  => $quote->getId(),
+      'client' => $quote->getClient(),
+      'amount' => $quote->getAmount(),
+      'currentServices' => $currentServices,
+      'date'   => $quote->getDate(),
+      'mail'   => $quote->getClient()->getEmail() 
+    ]));
+
+    $response = new Response($pdfContent);
+    $response->headers->set('Content-Type', 'application/pdf');
+    $response->headers->set('Content-Disposition', 'attachment; fileName="Devis_' . $quote->getId() . '.pdf"');
+  
+    return $response; 
+  }
+
+  // Relance devis
+  #[Route('/{id}/mail', name: 'app_quote_mail', methods: ['GET'])]
+  public function mail(Request $request, Quote $quote, PdfService $pdf): Response
+  {
+    $agency = $this->getUser()->getAgency();
+
+    if (!$agency) {
+      $this->denyAccessUnlessGranted('READ', $quote);
+    }
+
+    $currentServices = $quote->getServices();
+
+    $fileName= 'Devis_'. $quote->getId();
+    $pdfFilePath = 'pdf/'.$fileName.'.pdf';
+
+    $pdf->generatePdf($this->render("pdf/devis.html.twig", [
+      'devis'  => $quote->getId(),
+      'client' => $quote->getClient(),
+      'amount' => $quote->getAmount(),
+      'currentServices' => $currentServices,
+      'date'   => $quote->getDate(),
+      'mail'   => $quote->getClient()->getEmail() 
+      ]), $fileName);
+
+    $this->emailService->sendEmail(self::EMAIL_TEMPLATE_ID, $quote->getClient()->getEmail(), '', '', $pdfFilePath, $fileName, '');
+    
+    $this->addFlash('success', 'Devis renvoyé au client avec succès');
+
+    return $this->redirectToRoute('app_quote_index', [
+      'id' => $quote->getClient()->getId()
     ], Response::HTTP_SEE_OTHER);
   }
 }
