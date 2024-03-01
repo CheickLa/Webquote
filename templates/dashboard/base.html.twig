@@ -4,27 +4,32 @@
 	<div class="w-screen min-h-screen flex flex-1 p-2.5 md:p-0 dark:bg-wqdark-background">
 		<twig:Sidebar/>
 
-		<div
-			class="flex flex-1 flex-col self-stretch gap-[30px] md:gap-0 md:bg-webquote-950">
+		<div class="flex flex-1 flex-col self-stretch gap-[30px] md:gap-0 md:bg-webquote-950">
 			{# Header #}
-			<div
-				class="flex md:p-5 justify-between md:justify-end items-center self-stretch bg-white dark:bg-wqdark-background">
-        {# Mobile only #}
-        <i class="md:hidden ti ti-menu-2 cursor-pointer text-black dark:text-white" id="menu-open-btn"></i>
-        <p class="md:hidden text-xl text-webquote-500 font-semibold font-webquote">Webquote</p>
+			<div class="flex md:p-5 justify-between md:justify-{% if is_granted('IS_IMPERSONATOR') %}between{% else %}end{% endif %} items-center self-stretch bg-white dark:bg-wqdark-background max-h-[67.5px]">
+				{# Mobile only #}
+				<i class="md:hidden ti ti-menu-2 cursor-pointer text-black dark:text-white" id="menu-open-btn"></i>
 
+				{# back to admin #}
+				{% if is_granted('IS_IMPERSONATOR') %}
+					<twig:ButtonLink href="{{ impersonation_exit_path(path('app_dashboard')) }}" id="back-btn" class="bg-gray-100 flex justify-center">
+						<i class="ti ti-arrow-narrow-left"></i>
+						Admin
+					</twig:ButtonLink>
+				{% endif %}
 
-				<div
-					class="flex items-center gap-6">
+				{# Mobile only #}
+				<p class="md:hidden text-xl text-webquote-500 font-semibold font-webquote">Webquote</p>
+
+				<div class="flex items-center gap-6">
 					<p class="hidden md:block text-base font-medium dark:text-white">
-            {{ app.user.agency.name }}
-          </p>
+						{{ app.user.agency.name }}
+					</p>
 					<a href="{{ path('app_logout') }}">
 						<i class="ti ti-logout text-black dark:text-white"></i>
 					</a>
 				</div>
 			</div>
-
 			{# Content #}
 			<main class="flex md:p-[30px] flex-col items-start gap-5 flex-1 self-stretch overflow-hidden bg-gray-50 md:shadow-inner dark:bg-wqdark-background">
 				{% block content %}{% endblock %}

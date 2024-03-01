@@ -7,7 +7,20 @@
 
 {# Wrapper #}
 <div class="flex flex-col items-center self-stretch">
-  {# Content #}
+  {# Admin  - changement d'agence #}
+  {% if is_granted('ROLE_ADMIN') %}
+    <form method="get" class="flex flex-col justify-center gap-[30px] self-stretch md:w-[450px] md:self-auto">
+        <twig:Select name="id" label="Changer d'agence">
+            <option value="">Sélectionnez une agence</option>
+            {% for agency in agencies %}
+                <option value="{{ agency.id }}">{{ agency.name }}</option>
+            {% endfor %}
+        </twig:Select>
+        <button type="submit"><i class="ti ti-run"><i class="ti ti-arrow-narrow-right"></i></i></button>
+    </form>
+  {% endif %}
+
+  {# Thème #}
   <div class="flex flex-col justify-center gap-[30px] self-stretch md:w-[450px] md:self-auto">
     <twig:Select id="theme" name="theme" label="Thème">
       <option value="light">Clair</option>
