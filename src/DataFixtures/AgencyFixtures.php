@@ -10,20 +10,17 @@ class AgencyFixtures extends Fixture
 {
   public function load(ObjectManager $manager): void
   {
-    $faker = \Faker\Factory::create('fr_FR');
-
-    $agency = (new Agency())
+    $agency1 = (new Agency())
       ->setSiren('830256558')
       ->setName('AVANSEO');
-    $manager->persist($agency);
-    $this->addReference('agency', $agency);
+    $manager->persist($agency1);
+    $this->addReference('agency1', $agency1);
 
-    for ($i = 0; $i < 10; $i++) {
-      $agency = (new Agency())
-        ->setSiren(strval($faker->randomNumber(9, true)))
-        ->setName($faker->company());
-      $manager->persist($agency);
-    }
+    $agency2 = (new Agency())
+      ->setSiren('552038200')
+      ->setName('Elogie-Siemp');
+    $manager->persist($agency2);
+    $this->addReference('agency2', $agency2);
 
     $manager->flush();
   }

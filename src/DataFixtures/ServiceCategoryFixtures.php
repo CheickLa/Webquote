@@ -13,6 +13,8 @@ class ServiceCategoryFixtures extends Fixture implements DependentFixtureInterfa
 {
   public function load(ObjectManager $manager): void
   {
+    $faker = \Faker\Factory::create('fr_FR');
+
     $agencies = $manager->getRepository(Agency::class)->findAll();
 
     $categories = array(
@@ -28,7 +30,7 @@ class ServiceCategoryFixtures extends Fixture implements DependentFixtureInterfa
       "Consultation en stratégie numérique"
     );
 
-    for ($i = 0; $i < 50; $i++) {
+    for ($i = 0; $i < $faker->numberBetween(30, 50); $i++) {
       $agency = (new ServiceCategory())
         ->setName($categories[array_rand($categories)])
         ->setAgency($agencies[array_rand($agencies)]);

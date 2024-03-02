@@ -17,7 +17,7 @@ class ServiceFixtures extends Fixture implements DependentFixtureInterface
 
     $serviceCategories = $manager->getRepository(ServiceCategory::class)->findAll();
 
-    for ($i = 0; $i < 1000; $i++) {
+    for ($i = 0; $i < $faker->numberBetween(100, 200); $i++) {
       $agency = (new Service())
         ->setName($faker->sentence(3, true))
         ->setPrice($faker->randomFloat(2, 1, 1000))

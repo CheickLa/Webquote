@@ -17,15 +17,22 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         $pwd = 'test';
 
-        $user = (new User())
+        $user1 = (new User())
             ->setEmail('user@webquote.fr')
-            ->setRoles(['ROLE_USER'])
-            ->setAgency($this->getReference('agency'))
+            ->setRoles(['ROLE_ADMIN'])
+            ->setAgency($this->getReference('agency1'))
         ;
-        $user->setPassword($this->passwordHasher->hashPassword($user, $pwd));
-        $manager->persist($user);
-        $this->addReference('user', $user);
+        $user1->setPassword($this->passwordHasher->hashPassword($user1, $pwd));
+        $manager->persist($user1);
+        $manager->flush();
 
+        $user2 = (new User())
+            ->setEmail('cheick@elogie-siemp.paris')
+            ->setRoles(['ROLE_USER'])
+            ->setAgency($this->getReference('agency2'))
+        ;
+        $user2->setPassword($this->passwordHasher->hashPassword($user2, $pwd));
+        $manager->persist($user2);
         $manager->flush();
     }
 
