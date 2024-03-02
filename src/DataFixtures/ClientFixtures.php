@@ -16,7 +16,7 @@ class ClientFixtures extends Fixture implements DependentFixtureInterface
     $faker = \Faker\Factory::create('fr_FR');
     $agencies = $manager->getRepository(Agency::class)->findAll();
 
-    for ($i = 0; $i < $faker->numberBetween(30, 50); $i++) {
+    for ($i = 0; $i < $faker->numberBetween(15, 30); $i++) {
       $agency = (new Client())
         ->setSiren($faker->randomNumber(9, true))
         ->setName($faker->company())

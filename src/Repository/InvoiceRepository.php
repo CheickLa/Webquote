@@ -38,6 +38,7 @@ class InvoiceRepository extends ServiceEntityRepository
 
       return $this->createQueryBuilder('invoice')
         ->where('invoice.date BETWEEN :start AND :end')
+        ->andWhere('invoice.paid = true')
         ->setParameter('start', $start->format('Y-m-d H:i:s'))
         ->setParameter('end', $end->format('Y-m-d H:i:s'))
         ->getQuery()

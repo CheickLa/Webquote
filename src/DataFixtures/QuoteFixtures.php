@@ -16,14 +16,14 @@ class QuoteFixtures extends Fixture implements DependentFixtureInterface
 
     $clients = $manager->getRepository(Client::class)->findAll();
 
-    for ($i = 0; $i < $faker->numberBetween(50, 100); $i++) {
+    for ($i = 0; $i < $faker->numberBetween(100, 200); $i++) {
       $quote = new Quote();
 
       $client = $faker->randomElement($clients);
       $services = $client->getAgency()->getServices();
 
       $quote->setTitle($faker->sentence(5));
-      $quote->setDate($faker->dateTimeBetween('-6 months'));
+      $quote->setDate($faker->dateTimeBetween('-3 months'));
       $quote->setAmount($faker->randomFloat(2, 100, 1000));
       $quote->setClient($client);
 

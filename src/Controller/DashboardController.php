@@ -27,20 +27,35 @@ class DashboardController extends AbstractController
     {
         // Calculate monthly turnover
         $monthInvoices = $invoiceRepository->findByDate();
+
+        // Filter by current user
+        $monthInvoices = array_filter($monthInvoices, function ($invoice) {
+          return $invoice->getQuote()->getClient()->getAgency() === $this->getUser()->getAgency();
+        });
+
         $turnover = array_reduce($monthInvoices, function ($carry, $invoice) {
           return $carry + $invoice->getQuote()->getAmount();
         }, 0);
 
         // Get number of clients
         $clients = $clientRepository->findAll();
+        $clients = array_filter($clients, function ($client) {
+          return $client->getAgency() === $this->getUser()->getAgency();
+        });
         $clientCount = count($clients);
 
         // Get number of service categories
         $serviceCategories = $serviceCategoryRepository->findAll();
+        $serviceCategories = array_filter($serviceCategories, function ($serviceCategory) {
+          return $serviceCategory->getAgency() === $this->getUser()->getAgency();
+        });
         $serviceCategoryCount = count($serviceCategories);
 
         // Get number of services
         $services = $serviceRepository->findAll();
+        $services = array_filter($services, function ($service) {
+          return $service->getServiceCategory()->getAgency() === $this->getUser()->getAgency();
+        });
         $serviceCount = count($services);
 
         // Chart of the turnover by month for this year 
@@ -79,6 +94,9 @@ class DashboardController extends AbstractController
             'title' => [
               'display' => true,
               'text' => 'Chiffre d\'affaires mensuel',
+            ],
+            'legend' => [
+              'display' => false,
             ],
           ],
         ]);
@@ -125,6 +143,10 @@ class DashboardController extends AbstractController
             'title' => [
               'display' => true,
               'text' => 'Top 10 prestations les plus demandées',
+            ],
+            'legend' => [
+              'display' => true,
+              'position' => 'bottom',
             ],
           ],
         ]);

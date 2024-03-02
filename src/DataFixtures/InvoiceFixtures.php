@@ -16,15 +16,13 @@ class InvoiceFixtures extends Fixture implements DependentFixtureInterface
 
     $quotes = $manager->getRepository(Quote::class)->findAll();
 
-    // Create an invoice for only some quotes
     foreach ($quotes as $quote) {
-      if ($faker->boolean(40)) {
-        $invoice = new Invoice();
-        $invoice->setQuote($quote);
-        $invoice->setDate($faker->dateTimeBetween('now', '+6 months'));
-        $invoice->setPaid($faker->boolean(50));
-        $manager->persist($invoice);
-      }
+      $invoice = new Invoice();
+      $invoice->setQuote($quote);
+      // set date between january 1st of the current year and today
+      $invoice->setDate($faker->dateTimeBetween(date('Y-01-01'), 'now'));
+      $invoice->setPaid($faker->boolean(50));
+      $manager->persist($invoice);
     }
 
     $manager->flush();
