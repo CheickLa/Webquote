@@ -1,4 +1,4 @@
-/public/pdf/
+/public/pdf/*.pdf
 
 *.decrypt.private.php
 
