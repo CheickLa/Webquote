@@ -62,7 +62,7 @@
       </select>
     </div>
 
-    <twig:TextField id="price" name="{{ field_name(form.amount) }}" value="{{ field_value(form.amount)|default('') }}" label="Prix" type="number" />
+    <twig:TextField id="price" name="{{ field_name(form.amount) }}" value="{{ field_value(form.amount)|default('') }}" label="Prix" type="number" step=".01" />
 
     <twig:TextField name="{{ field_name(form.date) }}" value="{{ field_value(form.date).format('Y-m-d')|default('now'|date('Y-m-d')) }}" label="Date" type="date" min="{{ 'now'|date('Y-m-d') }}" /> 
   </div>

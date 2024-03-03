@@ -15,4 +15,5 @@ class TextField
     public bool $required = true;
     public string $min;
     public string $id;
+    public string $step = 'any';
 }
