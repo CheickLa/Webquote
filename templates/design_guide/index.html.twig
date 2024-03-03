@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webquote - Design Guide</title>
+    {{ encore_entry_link_tags('app_css') }}
+  </head>
+
+  <body class="flex min-h-screen w-screen bg-gray-50 items-center justify-center p-10">
+    <main class="flex flex-col gap-10 max-w-lg">
+      <h1 class="text-3xl">Webquote - Design Guide</h1>
+
+      <div class="flex flex-col gap-2.5">
+        <p class="text-2xl font-bold">BackButton</p>
+        <small class="text-xs">Bouton de redirection vers une page (sémantique : retour)</small>
+        <twig:BackButton href="#" />
+        <ul class="list-disc list-inside">
+          <li>href : chemin de redirection</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <p class="text-2xl font-bold">Button</p>
+        <small class="text-xs">Bouton d'envoi de formulaire</small>
+        <twig:Button id="button" class="bg-webquote-500 text-white flex justify-center gap-2.5 hover:bg-webquote-700">
+          <i class="ti ti-settings"></i>
+          Button 
+        </twig:Button>
+        <ul class="list-disc list-inside">
+          <li>id : identifiant du bouton</li>
+          <li>class : classes additionnelles du bouton</li>
+          <li>Contenu : icône/texte</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <p class="text-2xl font-bold">ButtonLink</p>
+        <small class="text-xs">Bouton de redirection vers une page</small>
+        <twig:ButtonLink href="#" target="_blank" onclick="alert('Hello, World!'); return false;" id="button-link" class="bg-webquote-500 text-white flex justify-center hover:bg-webquote-700">
+          ButtonLink 
+        </twig:ButtonLink>
+        <ul class="list-disc list-inside">
+          <li>href : chemin de redirection</li>
+          <li>target : cible de redirection (<a class="text-blue-500 hover:underline" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target" target="_blank">spec</a>)</li>
+          <li>id : identifiant du bouton</li>
+          <li>class : classes additionnelles du bouton</li>
+          <li>Contenu : icône/texte</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <p class="text-2xl font-bold">DashboardCard</p>
+        <small class="text-xs">Bloc informatif, statistique</small>
+        <twig:DashboardCard
+          backgroundColor="bg-emerald-600"
+          iconBackgroundColor="bg-emerald-700"
+          icon="ti-cash"
+          value="{{ 1337|format_currency('EUR') }}"
+          label="Chiffre d'affaires du mois"
+          labelColor="text-gray-200"
+        />
+        <twig:DashboardCard
+          backgroundColor="bg-yellow-600"
+          iconBackgroundColor="bg-yellow-700"
+          icon="ti-category"
+          value="24"
+          label="Catégories de prestations"
+          labelColor="text-gray-200"
+          small
+        /> 
+        <ul class="list-disc list-inside">
+          <li>backgroundColor : couleur de fond</li>
+          <li>iconBackgroundColor : couleur de l'icône</li>
+          <li>icon : <a href="https://tablericons.com/" class="text-blue-500 hover:underline" target="_blank">classe Tabler</a> de l'icône</li>
+          <li>value : valeur à afficher</li>
+          <li>valueColor : couleur de la valeur (défaut : 'text-white')</li>
+          <li>label : libellé</li>
+          <li>labelColor : couleur du libellé</li>
+          <li>small : format de la carte</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <p class="text-2xl font-bold">EmailButtonLink</p>
+        <small class="text-xs">Bouton d'envoi manuel de mail au client avec confirmation (devis/facture)</small>
+        <twig:EmailButtonLink
+          href="#"
+          id="email-button-link"
+          class="bg-gray-200 hover:bg-gray-400 self-start"
+        /> 
+        <ul class="list-disc list-inside">
+          <li>Hérite de ButtonLink</li>
+          <li>href : chemin de redirection</li>
+          <li>id : identifiant du bouton</li>
+          <li>class : classes additionnelles du bouton</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <p class="text-2xl font-bold">IconButton</p>
+        <small class="text-xs">Bouton format icône d'envoi de formulaire</small>
+        <twig:IconButton
+          id="icon-button"
+          class="bg-gray-700 hover:bg-black self-start"
+        > 
+          <i class="ti ti-plus"></i>
+        </twig:IconButton>
+        <ul class="list-disc list-inside">
+          <li>id : identifiant du bouton</li>
+          <li>class : classes additionnelles du bouton</li>
+          <li>Contenu : icône</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <p class="text-2xl font-bold">Select</p>
+        <small class="text-xs">Input de sélection d'élément</small>
+        <twig:Select
+          name="select"
+          label="Select"
+        > 
+          <option value="1">Hello, World!</option>
+          <option value="2">Goodbye, World!</option>
+        </twig:Select>
+        <ul class="list-disc list-inside">
+          <li>class : classes additionnelles du select</li>
+          <li>id : identifiant du bouton (défaut : name)</li>
+          <li>name : nom du select</li>
+          <li>label : libellé du select</li>
+          <li>Contenu : options du select</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <p class="text-2xl font-bold">SidebarItem</p>
+        <small class="text-xs">Entrée du menu de navigation du dashboard</small>
+        <twig:SidebarItem value="SidebarItem" icon="wallet" /> 
+        <twig:SidebarItem value="SidebarItem" icon="wallet" route="app_design_guide" /> 
+        <ul class="list-disc list-inside">
+          <li>value : libellé de l'entrée</li>
+          <li>icon : suffixe de la classe Tabler de l'entrée (e.g. 'wallet')</li>
+          <li>route : nom de la route Symfony de redirection</li>
+          <li>prefix : préfixe de la route Symfony de redirection</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <p class="text-2xl font-bold">TextField</p>
+        <small class="text-xs">Input de saisie de texte</small>
+        <twig:TextField
+          label="TextField"
+          name="text-field1"
+          value="Hello, World!"
+          required
+          id="text-field1"
+        />
+        <twig:TextField
+          label='TextField (type="number")'
+          type="number"
+          name="text-field2"
+          required="{{ false }}"
+          min="0"
+          id="text-field2"
+          step="0.01"
+        />
+        <ul class="list-disc list-inside">
+          <li>label : libellé de l'input</li>
+          <li>type : type de l'input (défaut : 'text')</li>
+          <li>name : nom de l'input</li>
+          <li>value : valeur de l'input</li>
+          <li>required : input requis (défaut : true)</li>
+          <li>autocomplete : autocomplétion de l'input (défaut : 'on', <a class="text-blue-500 hover:underline" target="_blank" href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute">spec</a>)</li>
+          <li>min : valeur minimale de l'input (lorsque type='number')</li>
+          <li>id : identifiant de l'input (défaut : name)</li>
+          <li>step : pas de l'input (lorsque type='number')</li>
+        </ul>
+      </div>
+    </main>
+  </body>
+
+</html>
