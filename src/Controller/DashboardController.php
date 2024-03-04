@@ -70,6 +70,12 @@ class DashboardController extends AbstractController
         $turnovers = [];
         foreach ($months as $month) {
           $monthInvoices = $invoiceRepository->findByDate(date('Y'), array_search($month, $months) + 1);
+
+          // Filter by current user 
+          $monthInvoices = array_filter($monthInvoices, function ($invoice) {
+            return $invoice->getQuote()->getClient()->getAgency() === $this->getUser()->getAgency();
+          });
+
           $turnover = array_reduce($monthInvoices, function ($carry, $invoice) {
             return $carry + $invoice->getQuote()->getAmount();
           }, 0);
@@ -105,6 +111,14 @@ class DashboardController extends AbstractController
 
         $services = $serviceRepository->findAll();
         $quotes = $quoteRepository->findAll();
+
+        // Filter by current user
+        $services = array_filter($services, function ($service) {
+          return $service->getServiceCategory()->getAgency() == $this->getUser()->getAgency();
+        });
+        $quotes = array_filter($quotes, function ($quote) {
+          return $quote->getClient()->getAgency() == $this->getUser()->getAgency();
+        });
 
         // make an array with the name of each service and the number of quotes for each service
         $serviceQuotes = array_map(function ($service) use ($quotes) {
