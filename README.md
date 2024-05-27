@@ -7,7 +7,8 @@ Webquote est une application web qui aide les agences web à gérer facilement l
 Technologies utilisées:
   - Symfony
   - Javascript
-  - Tailwind CSS 
+  - Tailwind CSS
+  - Docker 
 
 Outils:
   - Jira Software
